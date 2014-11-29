@@ -9,7 +9,7 @@
     padding: 0;
 
     .board-holder {
-      margin: 15px 70px 15px 40px;
+      margin: 0px 50px 0 30px;
       border: 1px solid @light-gray-color02;
 
       md-card {
@@ -46,8 +46,7 @@
       width: 61px;
 
       .colors-list {
-        margin: 0;
-        padding: 0;
+        .reset-indents;
         list-style: none;
         overflow: hidden;
         display: inline-block;
@@ -78,6 +77,75 @@
           font-size: @colors-radio-btn-active-font-size;
           margin: -10px 0 0 -10px;
           .opacity;
+        }
+      }
+
+      .stroke-width {
+        margin-top: 10px;
+
+        md-radio-group {
+          .reset-border;
+
+          md-radio-button, .md-switch-thumb {
+            margin: 2px 5px 2px 2px;
+            display: inline-block;
+
+            &:nth-child(1) {
+              .thin-line-stroke;
+              .md-container {
+                .thin-line-stroke;
+                .md-off {
+                  .thin-line-stroke;
+                }
+              }
+            }
+
+            &:nth-child(2) {
+              .medium-line-stroke;
+              .md-container {
+                .medium-line-stroke;
+                .md-off {
+                  .medium-line-stroke;
+                }
+              }
+            }
+
+            &:nth-child(3) {
+              .bold-line-stroke;
+              .md-container {
+                .bold-line-stroke;
+                .md-off {
+                  .bold-line-stroke;
+                }
+              }
+            }
+            .md-container {
+              vertical-align: middle;
+              top: 0;
+
+              .md-ripple-container{
+                display: none;
+              }
+            }
+
+            .md-off {
+              .border-radius(0);
+              background: @black-color;
+              border-width: 1.5px;
+            }
+
+            .md-checked .md-off, .md-checked .md-off {
+              background: @white-color;
+            }
+
+            .md-on {
+              display: none;
+            }
+
+            span {
+              display: none;
+            }
+          }
         }
       }
     }

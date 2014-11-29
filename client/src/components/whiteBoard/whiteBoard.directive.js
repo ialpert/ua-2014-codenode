@@ -39,7 +39,8 @@ angular.module('interviewer')
           orange: '#ff9100',
           brown: '#795548',
           grey: '#9e9e9e',
-          black: '#000'
+          black: '#000',
+          white: '#fff'
         };
         $scope.selectedIndex = 0;
         $scope.data = null;

@@ -24,12 +24,15 @@
     <div class="panel-aside whiteboard-color-picker">
       <ul class="colors-list">
         <li ng-repeat="(colorName, colorValue) in colors" ng-class="{'active': $index == selectedIndex}"
-            ng-click="setCurrentColor(colorValue, $index)" style="background:{{colorValue}}"><i
-          class="mdi-toggle-radio-button-on"></i></li>
+            ng-click="setCurrentColor(colorValue, $index)" style="background:{{colorValue}}">
+          <i class="mdi-toggle-radio-button-on"></i>
+        </li>
       </ul>
-      <md-radio-group ng-model="strokeWidth">
-        <md-radio-button ng-repeat="stroke in stroksWidth" value="{{stroke.size}}">{{stroke.name}}</md-radio-button>
-      </md-radio-group>
+      <div class="stroke-width">
+        <md-radio-group ng-model="strokeWidth">
+          <md-radio-button ng-repeat="stroke in stroksWidth" value="{{stroke.size}}">{{stroke.name}}</md-radio-button>
+        </md-radio-group>
+      </div>
     </div>
 
   </div>
