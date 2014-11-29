@@ -1,6 +1,8 @@
-var io = {
-  connect: createMockSocketObject
+var io = function (uri) {
+  return createMockSocketObject(uri);
 };
+
+io.connect = createMockSocketObject;
 
 function createMockSocketObject (uri) {
 
@@ -14,7 +16,7 @@ function createMockSocketObject (uri) {
       fn._once = true;
     },
     emit: function (ev, data, callback) {
-        if (this._listeners[ev]) {
+      if (this._listeners[ev]) {
         this._listeners[ev].forEach(function (listener) {
           if (listener._once) {
             this.removeListener(ev, listener);

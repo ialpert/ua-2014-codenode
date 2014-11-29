@@ -448,11 +448,6 @@ angular.module('services.examinerTransport')
           // or by specified uri.
           socket = window.io(_config.uri, _config.opts || {});
         }
-
-        socket.emit('interview:setup', {}, function() {
-
-        });
-
       },
 
       /**

@@ -10,8 +10,8 @@ angular.module('interviewer', [
   'ngMaterial',
   'toaster',
   'ui.ace',
+  'racer',
   'services.examinerTransport',
-  //'services.requestTracker',
   'ngClipboard',
   'ui.sortable'
 ])

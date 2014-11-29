@@ -5,6 +5,7 @@ describe('Controller: LoginCtrl', function () {
   // load the controller's module
   beforeEach(module('interviewer'));
   beforeEach(module('stateMock'));
+  beforeEach(module('racer'));
   var LoginCtrl,
       scope,
       toaster,
@@ -40,7 +41,7 @@ describe('Controller: LoginCtrl', function () {
     expect(toaster.pop).toHaveBeenCalledWith('error', 'Session Setup', jasmine.any(String));
   });
 
-  xit('should change the application state on success', inject(function ($state) {
+  it('should change the application state on success', inject(function ($state) {
     $state.expectTransitionTo('session');
     IOREST.socket.on('interview:setup', function (data, callback) {
       callback({
@@ -52,6 +53,7 @@ describe('Controller: LoginCtrl', function () {
     });
 
     scope.createSession();
+    scope.$digest();
     $state.ensureAllTransitionsHappened();
   }));
 });

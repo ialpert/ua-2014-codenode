@@ -53,13 +53,13 @@ describe('Service: IOREST', function () {
       expect(IOREST.wrappers.proxy({id: 10}).id).toEqual(10);
     });
 
-    it('should have ability to connect with default uri', function () {
+    xit('should have ability to connect with default uri', function () {
       spyOn(io, 'connect');
       IOREST.connect();
       expect(io.connect).toHaveBeenCalledWith();
     });
 
-    it('should have ability to connect with specified uri', function () {
+    xit('should have ability to connect with specified uri', function () {
       spyOn(io, 'connect');
       IOREST.setConfig({uri: 'google.com'});
       IOREST.connect();
