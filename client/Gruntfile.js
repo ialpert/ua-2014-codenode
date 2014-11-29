@@ -53,7 +53,7 @@ module.exports = function(grunt) {
     'jshint'
   ]);
 
-  grunt.registerTask('serve', [
+  grunt.registerTask('dev', [
     'less:dev',
     'autoprefixer:dev',
     'open',
