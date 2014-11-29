@@ -2,9 +2,52 @@
   "name": "interviewer",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.3.x"
+    "modernizr": "2.8.x",
+    "angular": "1.3.x",
+    "jquery": "2.x.x",
+    "angular-animate": "1.3.x",
+    "angular-cookies": "1.3.x",
+    "angular-touch": "1.3.x",
+    "angular-sanitize": "1.3.x",
+    "angular-ui-router": "0.2.x",
+    "bootstrap": "3.3.1",
+    "socket.io-client": "^1.2.1",
+    "angular-material": "0.6.0-rc1-master-57f10f7",
+    "bootstrap-material-design": "~0.1.6",
+    "angular-bootstrap": "~0.12.0",
+    "ng-lodash": "~0.0.2",
+    "angular-notify-toaster": "~0.4.7",
+    "ace-builds": "~1.1.5",
+    "angular-ui-ace": "~0.1.1",
+    "SimpleWebRTC": "*",
+    "zeroclipboard": "~2.1.6",
+    "ng-clip": "~0.2.4",
+    "angular-ui-sortable": "~0.13.1",
+    "paper": "~0.9.21"
   },
   "devDependencies": {
     "angular-mocks": "1.3.x"
+  },
+  "resolutions": {
+    "angular": "1.3.x",
+    "jquery": "2.x.x"
+  },
+  "overrides": {
+    "ace-builds": {
+      "main": "./src-noconflict/ace.js"
+    },
+    "socket.io-client": {
+      "main": "socket.io.js"
+    },
+    "angular-material": {
+      "main": [
+        "./angular-material.css",
+        "./themes/blue-theme.css",
+        "./angular-material.js"
+      ]
+    },
+    "SimpleWebRTC": {
+      "main": "./simplewebrtc.bundle.js"
+    }
   }
 }

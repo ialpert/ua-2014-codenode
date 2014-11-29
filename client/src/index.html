@@ -1,16 +1,56 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="interviewer">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Interviewer</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="bower_components/angular-material/themes/blue-theme.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material.min.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" />
+  <link rel="stylesheet" href="bower_components/angular-notify-toaster/toaster.css" />
   <link rel="stylesheet" href="css/main.css">
+  <script src="bower_components/modernizr/modernizr.js"></script>
 </head>
 <body>
-
-
-<script src="bower_components/angular/angular.js"></script>
+  <!-- Container for toaster notification system. -->
+  <toaster-container toaster-options="{'tap-to-dismiss': true, 'time-out': 3000, 'fade-out': 0, 'fade-in': 0,  'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
+  <!--Global loading spinner-->
+  <!--<loading><md-progress-linear md-mode="indeterminate"></md-progress-linear></loading>-->
+  <main class="interviewer" ui-view></main>
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/socket.io-client/socket.io.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/hammerjs/hammer.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+  <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/ng-lodash/build/ng-lodash.js"></script>
+  <script src="bower_components/angular-notify-toaster/toaster.js"></script>
+  <script src="bower_components/ace-builds/src-noconflict/ace.js"></script>
+  <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+  <script src="bower_components/SimpleWebRTC/simplewebrtc.bundle.js"></script>
+  <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+  <script src="bower_components/ng-clip/dest/ng-clip.min.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+  <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+  <script src="bower_components/paper/dist/paper-full.js"></script>
+  <!-- endbower -->
+  <script src="app.js"></script>
+  <script src="config.js"></script>
+  <script src="common/controllers/main/main.controller.js"></script>
+  <script src="common/controllers/login/login.controller.js"></script>
+  <script src="router.js"></script>
+  <!--<script src="common/services/iorest/iorest.service.js"></script>-->
+  <!--<script src="common/services/requestTracker/requestTracker.service.js"></script>-->
 </body>
 </html>
