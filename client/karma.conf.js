@@ -39,7 +39,8 @@ module.exports = function(config) {
       'src/test/**/*.js',
       'src/*.js',
       'src/common/**/*.js',
-      'src/components/**/*.js'
+      'src/components/**/*.js',
+      'src/**/*.html'
     ],
 
 
@@ -51,13 +52,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/**/*.js': 'coverage',
+      'src/**/*.html': 'ng-html2js'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: [
+      'progress',
+      'coverage'
+    ],
+
 
 
     // web server port
@@ -84,6 +91,21 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+    // Which plugins to enable
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine',
+      'karma-coverage',
+      'karma-ng-html2js-preprocessor'
+    ],
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix:'',
+      // setting this option will create only a single module that contains templates
+      // from all the files, so you can load them all with module('templates')
+      moduleName: 'templates'
+    }
   });
 };
