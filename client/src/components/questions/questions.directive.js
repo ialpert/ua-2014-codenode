@@ -51,7 +51,7 @@ angular.module('interviewer')
         /**
          * @describe
          * Gets the statistic for each state using.
-         * @param [Array] states Array of questions
+         * @param {Array} questions Array of questions
          * @returns {Array} Array of usage statistic
          */
         $scope.getStats = function (questions) {
@@ -97,6 +97,10 @@ angular.module('interviewer')
           $scope.currentQuestion = question;
         };
 
+        /**
+         *
+         * @param {Object} question Question to remove.
+         */
         $scope.removeQuestion = function (question) {
           if(confirm('Do you really want to remove this question?')) {
             lodash.remove($scope.questions, question);

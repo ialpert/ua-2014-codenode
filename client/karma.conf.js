@@ -29,6 +29,7 @@ module.exports = function(config) {
       'src/bower_components/angular-notify-toaster/toaster.js',
       'src/bower_components/angular-aria/angular-aria.js',
       'src/bower_components/hammerjs/hammer.js',
+      'src/bower_components/angular-timeago/src/timeAgo.js',
 
       'src/bower_components/angular-material/angular-material.js',
       'src/bower_components/zeroclipboard/dist/ZeroClipboard.js',
