@@ -2,6 +2,7 @@ angular.module('stateMock',[]);
 angular.module('stateMock').service("$state", function($q){
   this.expectedTransitions = [];
   this.transitionTo = function(stateName){
+
     if(this.expectedTransitions.length > 0){
       var expectedState = this.expectedTransitions.shift();
       if(expectedState !== stateName){

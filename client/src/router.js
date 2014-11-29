@@ -19,7 +19,33 @@ angular.module('interviewer')
       .state('session', {
         url: '/session/:id/',
         templateUrl: 'common/controllers/main/main.controller.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          session: function(Session, $stateParams, IOREST, Room, AppState) {
+            var session;
+
+            // Set current room id as token for all requests
+            IOREST.setConfig({
+              token: $stateParams.id
+            });
+
+            // Join to the room
+            session = Session.join({
+              hash: $stateParams.id
+            });
+
+            // Init application state and global room value.
+            session.then(function(rawModel) {
+              // Init AppState with raw model from the server.
+              AppState.init(rawModel);
+
+              // Setup room
+              Room.token = AppState.getState().at('_page.user.id').get();
+              Room.interview = AppState.getState().at('_page.user.interview').get();
+              Room.me = AppState.getState().at('_page.user').getCopy();
+            });
+          }
+        }
       })
       .state('login', {
         url: '/',

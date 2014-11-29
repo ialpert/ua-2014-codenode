@@ -8,7 +8,7 @@
  */
 angular.module('interviewer')
   .factory('Session', function(IOREST) {
-    return IOREST.createService('Session', {
+    return IOREST.createService('Interview', {
       setup: {
         action: 'setup'
       },
