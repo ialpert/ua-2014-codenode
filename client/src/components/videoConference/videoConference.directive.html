@@ -1,0 +1,37 @@
+<div class="video-conference">
+  <div class="panel panel-danger">
+    <div class="panel-heading">Video Conference</div>
+    <div class="panel-body">
+      <div class="remote-videos" layout="row" layout-align="center">
+        <md-card ng-repeat="peer in peers" remote-video>
+          <div class="video-holder">
+            <md-progress-linear class="peer-volume" md-mode="determinate" ng-value="peer.volume"></md-progress-linear>
+          </div>
+        </md-card>
+      </div>
+      <md-card>
+        <video id="conference-local-video"></video>
+      </md-card>
+    </div>
+    <div class="panel-footer control-tools clearfix">
+      <div class="icon-preview icons-material col-lg-4">
+        <!--<i class="mdi-social-person-add" data-toggle="modal" data-target="#add-attendy"></i>-->
+        <i class="mdi-social-person-add" data-toggle="modal" data-target="#add-attendy" ng-click="addParticipant($event)"></i>
+      </div>
+
+      <!-- <div class="icon-preview icons-material col-lg-3">
+         <i class="mdi-av-volume-up"></i>
+         &lt;!&ndash;<i class="mdi-av-volume-off"></i>&ndash;&gt;
+       </div>-->
+
+      <div class="icon-preview icons-material col-lg-4">
+        <i ng-class="{'mdi-av-mic': micEnabled, 'mdi-av-mic-off': !micEnabled}" ng-click="toggleMic()"></i>
+        <!--<i class="mdi-av-mic-off"></i>-->
+      </div>
+
+      <div class="icon-preview icons-material col-lg-4">
+        <i ng-class="{'mdi-av-videocam': localVideoEnabled, 'mdi-av-videocam-off': !localVideoEnabled}" ng-click="toggleLocalVideo()"></i>
+      </div>
+    </div>
+  </div>
+</div>
