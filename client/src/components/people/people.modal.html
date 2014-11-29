@@ -9,8 +9,8 @@
             <div class="md-tile-content">
               <p>{{person.name}} ({{person.status}})</p>
 
-              <p><a ng-href="/#/room/{{person.id}}" target="_blank">Share invite</a></p>
-              <md-button md-no-ink class="md-primary" clip-copy="">Copy</md-button>
+              <p><a ui-sref="session({id: person.id})">Share invite</a></p>
+              <md-button md-no-ink class="md-primary" clip-copy="compileLink(person.id)">Copy</md-button>
               <md-button md-no-ink class="md-warn" ng-click="reject(person)">Reject</md-button>
             </div>
           </md-item-content>

@@ -1,5 +1,5 @@
 angular.module('interviewer')
-  .controller('peopleCtrl', function($scope, AppState, Room, lodash, $timeout) {
+  .controller('peopleCtrl', function($scope, AppState, Room, lodash, $timeout, $window) {
     var people;
 
     $scope.statuses = ['expert', 'candidate'];
@@ -42,4 +42,19 @@ angular.module('interviewer')
       AppState.getState().at('users').add(newUser);
     };
 
+
+    /**
+     * Compiles the link.
+     * @param {string} sessionId
+     * @returns {string} Compiled link {domain}/room/{sessionId}
+     */
+    $scope.compileLink = function (sessionId, location) {
+      var regexp = /^(.+)\/.+$/,
+          locationWithoutLatestHash = (location || $window.location.href).match(regexp)[1];
+
+      if (!locationWithoutLatestHash) {
+        throw new Error('Link could not be compiled with a wrong location format: ' + location);
+      }
+      return [locationWithoutLatestHash, sessionId, ''].join('/');
+    };
   });
