@@ -14,7 +14,14 @@ angular.module('interviewer')
       scope: {},
       link: function($scope) {
         /**
-         * List of question states
+         * @describe
+         * Current selected question.
+         * @type {Object}
+         */
+        $scope.currentQuestion = null;
+
+        /**
+         * List of question states.
          * @type {{label: string}[]}
          */
         $scope.states = {
@@ -48,7 +55,15 @@ angular.module('interviewer')
          * @returns {Array} Array of usage statistic
          */
         $scope.getStats = function (questions) {
-          return questions.reduce(function (memo, item) {
+          var totalAnsweredQuestions, result;
+
+          // Get total count of answered questions. Not answered question will not be counted.
+          totalAnsweredQuestions = questions.filter(function (item) {
+            return !!item.status;
+          }).length;
+
+          // Calculate stats.
+          result = questions.reduce(function (memo, item) {
             if (!!item.status) {
               if (!memo[item.status]) {
                 memo[item.status] = 0;
@@ -57,6 +72,13 @@ angular.module('interviewer')
             }
             return memo;
           }, {});
+
+          // Transform number to percents.
+          Object.keys(result).forEach(function (key) {
+            result[key] = (result[key] / totalAnsweredQuestions) * 100;
+          });
+
+          return result;
         };
 
         /**
@@ -66,6 +88,19 @@ angular.module('interviewer')
          */
         $scope.setQuestionState = function (question, label) {
           question.status = $scope.states[label];
+        };
+
+        /**
+         * @param {Object} question Changes the current question.
+         */
+        $scope.selectQuestion = function (question) {
+          $scope.currentQuestion = question;
+        };
+
+        $scope.removeQuestion = function (question) {
+          if(confirm('Do you really want to remove this question?')) {
+            lodash.remove($scope.questions, question);
+          }
         };
       }
     };
