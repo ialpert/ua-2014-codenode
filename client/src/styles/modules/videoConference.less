@@ -1,0 +1,29 @@
+
+.video-conference {
+
+  .remote-videos {
+    md-card {
+      min-width: 100px;
+
+      .video-holder {
+        position: relative;
+
+        .peer-volume {
+          position: absolute;
+          bottom: 5px;
+          z-index: 1;
+        }
+      }
+    }
+  }
+  .local-video-holder {
+    background: @vivid-blue-color;
+  }
+
+  video {
+    width: 100%;
+    display: block;
+    -webkit-filter: contrast(1);
+    filter: contrast(1);
+  }
+}
