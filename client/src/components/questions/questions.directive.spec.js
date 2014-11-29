@@ -1,9 +1,10 @@
 'use strict';
 
-describe('Directive: loading', function () {
+describe('Directive: questions', function () {
 
   // load the directive's module
   beforeEach(module('interviewer'));
+  //beforeEach(module('templates'));
 
   var element, scope, $rootScope, $httpBackend;
 
@@ -18,10 +19,47 @@ describe('Directive: loading', function () {
     $httpBackend.expectGET("common/controllers/login/login.controller.html").respond({});
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<questions>loading</questions>');
+  xit('should calculate statistic in correct way', inject(function ($compile) {
+    element = angular.element('<questions></questions>');
+    console.log(element);
     element = $compile(element)(scope);
-    $rootScope.$apply();
-    //expect(element.hasClass('in')).toBeTruthy();
+    var questions = [
+      {
+        text: 'q1',
+        code: 'function',
+        author: 'rus',
+        status: 'success'
+      },
+      {
+        text: 'q2',
+        code: 'function()',
+        author: 'rus',
+        status: 'success'
+      },
+      {
+        text: 'q3',
+        code: 'function()',
+        author: 'rus',
+        status: 'so-so'
+      },
+      {
+        text: 'q4',
+        code: 'function()',
+        author: 'rus',
+        status: 'oops...'
+      },
+      {
+        text: 'q4',
+        code: 'function()',
+        author: 'rus'
+      }
+    ];
+
+    scope.$digest();
+    expect(scope.getStats(questions)).toEqual({
+      'success': 2,
+      'so-so': 1,
+      'oops...': 1
+    });
   }));
 });

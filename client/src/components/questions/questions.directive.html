@@ -1,1 +1,44 @@
-this is a questions directive
+<div class="question-list">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Question List
+      <span class="question-add icon-preview icons-material pull-right">
+        <i class="mdi-content-add-box" ng-click="showEditQuestionPopup()"></i>
+      </span>
+    </div>
+
+    <progress>
+      <bar ng-repeat="(type, value) in getStats(questions)" value="value" type="{{type}}"></bar>
+    </progress>
+
+    <div class="panel-body well">
+      <div>
+
+        <div class="list-group" ng-repeat="question in questions">
+          <a class="list-group-item" ng-click="selectQuestion(question)">
+            <h4 class="list-group-item-heading">{{question.text}}</h4>
+          </a>
+
+          <div class="question-list-control">
+            <span class="question-edit icon-preview icons-material" ng-click="showEditQuestionPopup(question)">
+              <i class="mdi-content-create"></i>
+            </span>
+            <span class="question-remove icon-preview icons-material" ng-click="removeQuestion(question)">
+              <i class="mdi-content-clear"></i>
+            </span>
+          </div>
+
+          <div class="list-group-item-footer clearfix">
+            <div class="user-selected pull-left">
+              <span class="user-name">{{question.author}}</span>
+            </div>
+
+            <div class="label-mark pull-right">
+              <span ng-click="setQuestionState(question, label)" style="cursor: pointer" ng-repeat="(label, sclass) in states" class="label label-{{sclass}}" >{{label}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
