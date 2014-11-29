@@ -1,0 +1,24 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <md-content>
+    <md-subheader class="md-sticky-no-effect">Popup for questions</md-subheader>
+    <div class="modal-body">
+      <form>
+        <input type="text" ng-model="question.text" size="130" placeholder="add new question here">
+        <div ng-model="question.editor.code" ui-ace="{
+                  useWrapMode : false,
+                  showGutter: true,
+                  mode: 'javascript',
+                  firstLineNumber: 5,
+                  onLoad: aceLoaded,
+                  onChange: aceChanged,
+                  codeFolding: 'mark-begin'
+                }" style="width: 100%; height: 150px;"></div>
+      </form>
+    </div>
+  </md-content>
+  <div class="md-actions" layout="row">
+    <md-button ng-click="cancel()">Cancel</md-button>
+    <md-button ng-click="close(question)" class="md-primary">Save</md-button>
+  </div>
+</md-dialog>
+

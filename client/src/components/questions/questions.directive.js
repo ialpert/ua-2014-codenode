@@ -7,12 +7,12 @@
  * Directive for the question list.
  */
 angular.module('interviewer')
-  .directive('questions', function($mdDialog, AppState, lodash, Room) {
+  .directive('questions', function ($mdDialog, AppState, lodash, Room) {
     return {
-      restrict: 'E',
+      restrict   : 'E',
       templateUrl: 'components/questions/questions.directive.html',
-      scope: {},
-      link: function($scope) {
+      scope      : {},
+      link       : function ($scope) {
         /**
          * @describe
          * Current selected question.
@@ -32,18 +32,18 @@ angular.module('interviewer')
 
         $scope.questions = [
           {
-            text: 'q1',
-            code: 'function',
+            text  : 'q1',
+            code  : 'function',
             author: 'rus'
           },
           {
-            text: 'q2',
-            code: 'function()',
+            text  : 'q2',
+            code  : 'function()',
             author: 'rus'
           },
           {
-            text: 'q3',
-            code: 'function()',
+            text  : 'q3',
+            code  : 'function()',
             author: 'rus'
           }
         ];
@@ -101,10 +101,41 @@ angular.module('interviewer')
          *
          * @param {Object} question Question to remove.
          */
-        $scope.removeQuestion = function (question) {
-          if(confirm('Do you really want to remove this question?')) {
+        $scope.removeQuestion = function ($event, question) {
+          $event.stopPropagation();
+          if (confirm('Do you really want to remove this question?')) {
             lodash.remove($scope.questions, question);
           }
+        };
+
+        /**
+         * @description
+         * Open the add/edit popup for the current or new question
+         * @param {Object} question Question to edit
+         */
+        $scope.showEditQuestionPopup = function ($event, question) {
+          $event.stopPropagation();
+
+          var isNew = !question;
+
+          // Open the dialog
+          $mdDialog.show({
+            controller : 'QuestionsModalCtrl',
+            templateUrl: 'components/questions/question.modal.html',
+            locals     : {
+              question: isNew ? {} : angular.copy(question)
+            }
+          })
+            .then(function (questionFromPopup) {
+              if (isNew) {
+                questionFromPopup.author = Room.token;
+                $scope.questions.push(questionFromPopup);
+              } else {
+                question.text = questionFromPopup.text;
+                question.editor = questionFromPopup.editor;
+                question.author = Room.token;
+              }
+            });
         };
       }
     };

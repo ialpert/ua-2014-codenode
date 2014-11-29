@@ -14,7 +14,7 @@
     <div class="panel-body well">
       <div>
 
-        <div class="list-group"
+        <div class="list-group {{question.status}}"
              ng-repeat="question in questions"
              ng-class="{current: currentQuestion == question}"
              ng-click="selectQuestion(question)">
@@ -23,17 +23,17 @@
           </a>
 
           <div class="question-list-control">
-            <span class="question-edit icon-preview icons-material" ng-click="showEditQuestionPopup(question)">
+            <span class="question-edit icon-preview icons-material" ng-click="showEditQuestionPopup($event, question)">
               <i class="mdi-content-create"></i>
             </span>
-            <span class="question-remove icon-preview icons-material" ng-click="removeQuestion(question)">
+            <span class="question-remove icon-preview icons-material" ng-click="removeQuestion($event, question)">
               <i class="mdi-content-clear"></i>
             </span>
           </div>
 
           <div class="list-group-item-footer clearfix">
             <div class="user-selected pull-left">
-              <span class="user-name">{{question.author}}</span>
+              <span class="user-name">{{question.author | person}}</span>
             </div>
 
             <div class="label-mark pull-right">
