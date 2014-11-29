@@ -1,6 +1,7 @@
 html, body {
   .full-height;
   min-height: @full-size;
+  background-color: #eee;
 }
 
 /* Main area */
@@ -30,7 +31,6 @@ html, body {
 
   .flex-container {
     position: relative;
-
   }
 
   .flex-item {
@@ -67,6 +67,37 @@ html, body {
   }
 
   /* BOOTSTRAP Components */
+
+  /* Labels */
+  .label {
+    &-success {
+      color: #5cb85c;
+      background-color: transparent;
+
+      &.active {
+        background-color: #5cb85c;
+        color: #fff;
+      }
+    }
+    &-warning {
+      color: #f0ad4e;
+      background-color: transparent;
+
+      &.active {
+        background-color: #f0ad4e;
+        color: #fff;
+      }
+    }
+    &-danger {
+      color: #d9534f;
+      background-color: transparent;
+
+      &.active {
+        background-color: #d9534f;
+        color: #fff;
+      }
+    }
+  }
 
   /* Panels */
   .panel {
