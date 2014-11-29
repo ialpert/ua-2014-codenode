@@ -10,7 +10,7 @@ angular.module('interviewer', [
   'ngMaterial',
   'toaster',
   'ui.ace',
-  //'services.examinerTransport',
+  'services.examinerTransport',
   //'services.requestTracker',
   'ngClipboard',
   'ui.sortable'
@@ -42,41 +42,41 @@ angular.module('interviewer', [
     });
   })
 
-  // Configuring and run sockets.
-  //.config(function(IORESTProvider) {
-  //  IORESTProvider.setConfig({
-  //    defaultWrapper: IORESTProvider.wrappers.default
-  //  });
-  //  IORESTProvider.connect();
-  //})
-  //
-  //// Setup security system based on the roles and make other useful actions.
-  //.run(function($rootScope, $location, $state, IOREST, toaster, $log) {
-  //
-  //  // Setup global error notification handler for the sockets.
-  //  IOREST.socket.on('error', function(error) {
-  //    toaster.pop('error', 'Connection Trouble', 'Open console to see more details about this error.');
-  //    $log.error(error);
-  //  });
-  //
-  //  IOREST.socket.on('disconnect', function(error) {
-  //    toaster.pop('error', 'Connection Failed', 'Connection with the server has been failed.');
-  //    $log.error(error);
-  //  });
-  //
-  //  IOREST.socket.on('reconnect', function() {
-  //    toaster.pop('success', 'Connection Established', 'Successful reconnection to the server.');
-  //  });
-  //
-  //  // Useful utility for hte safest scope applying.
-  //  $rootScope.safeApply = function(fn) {
-  //    var phase = this.$root.$$phase;
-  //    if (phase === '$apply' || phase === '$digest') {
-  //      if (fn && (typeof(fn) === 'function')) {
-  //        fn();
-  //      }
-  //    } else {
-  //      this.$apply(fn);
-  //    }
-  //  };
-  //});
+  //Configuring and run sockets.
+  .config(function(IORESTProvider) {
+    IORESTProvider.setConfig({
+      defaultWrapper: IORESTProvider.wrappers.default
+    });
+    IORESTProvider.connect();
+  })
+
+  // Setup security system based on the roles and make other useful actions.
+  .run(function($rootScope, $location, $state, IOREST, toaster, $log) {
+
+    // Setup global error notification handler for the sockets.
+    IOREST.socket.on('error', function(error) {
+      toaster.pop('error', 'Connection Trouble', 'Open console to see more details about this error.');
+      $log.error(error);
+    });
+
+    IOREST.socket.on('disconnect', function(error) {
+      toaster.pop('error', 'Connection Failed', 'Connection with the server has been failed.');
+      $log.error(error);
+    });
+
+    IOREST.socket.on('reconnect', function() {
+      toaster.pop('success', 'Connection Established', 'Successful reconnection to the server.');
+    });
+
+    // Useful utility for hte safest scope applying.
+    $rootScope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if (phase === '$apply' || phase === '$digest') {
+        if (fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
+  });
