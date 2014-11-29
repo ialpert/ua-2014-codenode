@@ -31,9 +31,9 @@
     padding: 15px;
     .reset-margin;
     position: relative;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #fff #fff #ddd #fff;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #fff #fff #ddd #fff !important;
 
     &.ui-sortable-helper {
       border-color: @light-gray-color03;
@@ -55,8 +55,8 @@
     }
     &.current {
       border-color: @vivid-blue-color;
-      box-shadow: inset 0px 0px 5px 1px rgba(3, 169, 244, 0.5);
-      transition: all 0.5s ease-out;
+      .box-shadow(inset 0px 0px 5px 1px rgba(3, 169, 244, 0.5));
+      .transition(all 0.5s ease-out);
     }
 
     &-item {
@@ -93,7 +93,7 @@
     &:hover .question-list-control {
       visibility: visible;
       opacity: 1;
-      transition: opacity 0.5s ease-out 0.3s;
+      .transition(opacity 0.5s ease-out 0.3s);
     }
   }
 
