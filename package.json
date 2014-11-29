@@ -3,7 +3,13 @@
   "description": "Mind blowing app for assessment sessions",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.10.4",
+    "livedb-mongo": "^0.4.1",
+    "racer": "^0.6.0-alpha24",
+    "racer-bundle": "^0.1.1",
+    "racer-highway": "^2.0.0"
+  },
   "contributors": [
     {
       "name": "Igor Alpert",
@@ -37,7 +43,7 @@
     }
   ],
   "scripts": {
-    "start": "node srv"
+    "start": "node server"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
