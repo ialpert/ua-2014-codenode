@@ -112,7 +112,7 @@
 angular.module('services.examinerTransport', ['ngLodash']);
 
 angular.module('services.examinerTransport')
-  .provider('IOREST', function (lodash) {
+  .provider('IOREST', function(lodash) {
     var _, $q, _config, socket, parsers, wrappers, pendingRequests, $log;
 
     // Alias for the lodash lib.
@@ -125,10 +125,10 @@ angular.module('services.examinerTransport')
      * @returns {*}
      */
     parsers = {
-      'default': function (response) {
+      'default': function(response) {
         return response.result;
       },
-      proxy: function (response) {
+      proxy: function(response) {
         return response;
       }
     };
@@ -141,29 +141,29 @@ angular.module('services.examinerTransport')
      * @private
      */
     wrappers = {
-      'default': function (model) {
+      'default': function(model) {
         return {
           token: _config.token,
           data: model
         };
       },
-      filter: function (model) {
+      filter: function(model) {
         return {
           token: _config.token,
           filter: model
         };
       },
-      proxy: function (model) {
+      proxy: function(model) {
         return model;
       }
     };
 
     // Service config.
     _config = {
-      uri      : null,
-      token    : '',
+      uri: null,
+      token: '',
       separator: ':',
-      prefix   : '',
+      prefix: '',
       defaultParser: parsers.default,
       defaultWrapper: wrappers.default
     };
@@ -182,7 +182,7 @@ angular.module('services.examinerTransport')
        * @param {object} options Options or model, whatever to specify the request.
        * @returns {Promise} promise for `get` operation
        */
-      get   : {
+      get: {
         action: 'get'
       },
 
@@ -196,7 +196,7 @@ angular.module('services.examinerTransport')
        * @param {object} options Options or model, whatever to specify the request.
        * @returns {Promise} promise for `edit` operation
        */
-      edit  : {
+      edit: {
         action: 'edit'
       },
 
@@ -250,7 +250,7 @@ angular.module('services.examinerTransport')
      * @param {object} methods Methods of this transport.
      * @constructor
      */
-    var IOREST_Transport = function (endpoint, methods) {
+    var IOREST_Transport = function(endpoint, methods) {
       // Check whether the endpoint is specified correctly.
       if (!_.isString(endpoint)) {
         throw new Error('Endpoint should be specified and should be a string.');
@@ -291,7 +291,7 @@ angular.module('services.examinerTransport')
        *
        * @returns {String} endpoint
        */
-      getEndpoint: function () {
+      getEndpoint: function() {
         return this._endpoint;
       },
 
@@ -305,7 +305,7 @@ angular.module('services.examinerTransport')
        * @returns {string} whole event
        * @private
        */
-      _compile: function (action) {
+      _compile: function(action) {
         return _config.prefix + [this.getEndpoint(), action].join(_config.separator);
       },
 
@@ -320,16 +320,16 @@ angular.module('services.examinerTransport')
        * @param {Object} methods Map of functions
        * @private
        */
-      _provideAPI: function (methods) {
+      _provideAPI: function(methods) {
         // Merge methods deeply.
         methods = _.merge({}, _defaultMethods, methods || {});
         // Create transport methods.
-        _(methods).forOwn(function (method, key) {
+        _(methods).forOwn(function(method, key) {
 
           // Each method can accept model that will be sent to the server.
           // For example, if we want to update a model, we need to add
           // at least `id` param.
-          this[key] = function (model) {
+          this[key] = function(model) {
             var def, eventName, parse, wrap, fakeEventToLog;
 
             def = $q.defer();
@@ -355,7 +355,7 @@ angular.module('services.examinerTransport')
 
             // Make emmit call. We use here third param as callback.
             // @see http://stackoverflow.com/questions/20337832/is-socket-io-emit-callback-appropriate
-            socket.emit(eventName, model, function (response) {
+            socket.emit(eventName, model, function(response) {
               // Logging response.
               $log.debug(eventName + ' <- ' + JSON.stringify(response, null, 2));
               // Reject promise in case that response contains `error` field.
@@ -397,7 +397,7 @@ angular.module('services.examinerTransport')
        * @static
        * @param {object} config Configuration object.
        */
-      setConfig: function (config) {
+      setConfig: function(config) {
         _.merge(_config, config);
       },
 
@@ -411,7 +411,7 @@ angular.module('services.examinerTransport')
        * @static
        * @return {object} a copy of config.
        */
-      getConfig: function () {
+      getConfig: function() {
         return _.cloneDeep(_config);
       },
 
@@ -426,7 +426,7 @@ angular.module('services.examinerTransport')
        * @param {object} methods Map of methods.
        * @returns {IOREST_Transport} an instance of IOREST_tranposrt with appropiate methods.
        */
-      createService: function (endpoint, methods) {
+      createService: function(endpoint, methods) {
         return new IOREST_Transport(endpoint, methods);
       },
 
@@ -438,15 +438,21 @@ angular.module('services.examinerTransport')
        * Establishes connection to the socket server. This method should be called in the `config` or `run` phase of
        * application. In other case instances of `IOREST_Transport` won't work on event won't be create in correct way.
        */
-      connect: function () {
+      connect: function() {
         // Connect to the server. Works only during the configuration phase.
+
         if (_.isNull(_config.uri)) {
           // by default
-          socket = window.io.connect();
+          socket = window.io('', _config.opts || {});
         } else {
           // or by specified uri.
-          socket = window.io.connect(_config.uri);
+          socket = window.io(_config.uri, _config.opts || {});
         }
+
+        socket.emit('interview:setup', {}, function() {
+
+        });
+
       },
 
       /**
@@ -488,7 +494,7 @@ angular.module('services.examinerTransport')
     this.pendingRequests = pendingRequests;
 
     // Method for instantiating. In our case we are just returning service itself.
-    this.$get = ['$q', '$log', function (_$q_, _$log_) {
+    this.$get = ['$q', '$log', function(_$q_, _$log_) {
       $q = _$q_;
       $log = _$log_;
 

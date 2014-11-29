@@ -45,7 +45,10 @@ angular.module('interviewer', [
   //Configuring and run sockets.
   .config(function(IORESTProvider) {
     IORESTProvider.setConfig({
-      defaultWrapper: IORESTProvider.wrappers.default
+      defaultWrapper: IORESTProvider.wrappers.default,
+      opts: {
+        transports: ['websocket']
+      }
     });
     IORESTProvider.connect();
   })
