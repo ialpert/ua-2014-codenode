@@ -5,7 +5,7 @@ module.exports = {
     listen: 3500,
 
     static: [
-      ['/', 'client/src']
+      ['/', 'client/build']
     ]
   },
 
