@@ -1,6 +1,11 @@
 /* MIXINS */
 
 /* Indents */
+.reset-indents {
+  margin: 0;
+  padding: 0;
+}
+
 .reset-padding {
   padding: 0px;
 }
@@ -91,6 +96,12 @@
   opacity: @opacity;
 }
 
+.box-sizing (@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
 /* Shadow */
 .text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
   text-shadow: @string;
@@ -115,14 +126,18 @@
 }
 
 /* Animation */
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+}
+
 .transition-all {
   -webkit-transition: all 0.25s linear;
-  -moz-transition: all 0.25s linear;
   transition: all 0.25s linear;
 }
 
 /* Flexbox */
-.flex-container {
+.flex-wrapper {
   display: flex;
   flex: 1;
 }
@@ -131,6 +146,10 @@
 }
 
 .flex-grow-none {
+  flex: 0 0 auto;
+}
+
+.flex-grow-initial {
   flex: 1 0 auto;
 }
 
@@ -140,6 +159,10 @@
 
 .flex-grow-twice {
   flex: 2 1 auto;
+}
+
+.flex-grow-thrice {
+  flex: 3;
 }
 
 .flex-column {
