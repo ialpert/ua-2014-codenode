@@ -45,10 +45,11 @@ angular.module('interviewer')
         $scope.data = null;
         $scope.currentColor = 'black';
         $scope.stroksWidth = [
-          {name: 'min', size: 3},
-          {name: 'mid', size: 8},
-          {name: 'max', size: 12}
+          {name: 'thin', size: '3'},
+          {name: 'medium', size: '8'},
+          {name: 'bold', size: '12'}
         ];
+
         $scope.strokeWidth = $scope.stroksWidth[0].size;
         $scope.ERASER_COLOR = '#fff';
 
@@ -152,7 +153,7 @@ angular.module('interviewer')
               x: x,
               y: y
             },
-            radius: ($scope.strokeWidth - 1)
+            radius: ($scope.strokeWidth/2)
           });
           myCircle.strokeColor = $scope.currentColor;
           myCircle.fillColor = $scope.currentColor;
