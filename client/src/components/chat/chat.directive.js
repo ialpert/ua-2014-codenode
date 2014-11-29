@@ -12,7 +12,7 @@ angular.module('interviewer')
       restrict: 'E',
       templateUrl: 'components/chat/chat.directive.html',
       scope: {},
-      controller: function($scope) {
+      link: function($scope, element) {
         var chats, selectedChat;
 
         chats = AppState.getState().at('_page.session').at('chats');
@@ -80,9 +80,6 @@ angular.module('interviewer')
 
           }
         };
-      },
-      link: function(scope, element, attrs) {
-
       }
     };
   });

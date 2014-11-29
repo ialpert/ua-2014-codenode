@@ -1,5 +1,5 @@
 angular.module('interviewer')
-  .controller('peopleCtrl', function($scope, AppState, Room, lodash, $timeout, $window) {
+  .controller('peopleCtrl', function($scope, AppState, Room, lodash, $timeout, $window, $mdDialog) {
     var people;
 
     $scope.statuses = ['expert', 'candidate'];
@@ -27,7 +27,9 @@ angular.module('interviewer')
     };
 
     $scope.reject = function(user) {
-      people.del(user.id);
+      if (confirm('Are you sure you want to reject this person?')) {
+        people.del(user.id);
+      }
     };
 
     /**
