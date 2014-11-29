@@ -33,6 +33,8 @@
     "grunt-open": "^0.2.3",
     "grunt-usemin": "^2.6.2",
     "jshint-stylish": "^1.0.0",
+    "karma": "^0.12.28",
+    "karma-jasmine": "^0.3.2",
     "load-grunt-parent-tasks": "^0.1.1",
     "matchdep": "^0.3.0",
     "socket.io-client": "^1.2.1",
