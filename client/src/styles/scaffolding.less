@@ -29,50 +29,55 @@ html, body {
     text-align: center;
   }
 
-  .flex-container {
-    position: relative;
-  }
-
-  .flex-item {
-    &:nth-child(1), &:nth-child(3) {
-      position: fixed;
-      top: 20px;
-      bottom: 20px;
-      .flex-wrapper;
+  @media (min-width: 1200px) {
+    .flex-container {
+      position: relative;
     }
-    &:nth-child(1) {
-      left: 0;
 
-      & > * {
+    .flex-item {
+      &:nth-child(1), &:nth-child(3) {
+        position: fixed;
+        top: 20px;
+        bottom: 20px;
         .flex-wrapper;
       }
+      &:nth-child(1) {
+        left: 0;
+
+        & > * {
+          .flex-wrapper;
+        }
+      }
+      &:nth-child(3) {
+        right: 0;
+        .flex-column;
+      }
     }
-    &:nth-child(3) {
-      right: 0;
+
+    .main-flex-item {
+      .flex-wrapper;
+      .flex-grow-twice;
       .flex-column;
-    }
-  }
-
-  .main-flex-item {
-    .flex-wrapper;
-    .flex-grow-twice;
-    .flex-column;
-    align-items: stretch;
-    margin: 20px 25% 0;
-
-    -webkit-align-self: auto;
-    align-self: auto;
-    -webkit-order: 0;
-    order: 0;
-
-    & > * {
-      flex: 1 0 auto;
       align-items: stretch;
-      margin: 0 0 20px;
+      margin: 20px 25% 0;
+
+      -webkit-align-self: auto;
+      align-self: auto;
+      -webkit-order: 0;
+      order: 0;
+
+      & > * {
+        flex: 1 0 auto;
+        align-items: stretch;
+        margin: 0;
+      }
     }
   }
 
   /* BOOTSTRAP Components */
+  .well{
+    padding: 0;
+  }
 
   /* Labels */
   .label {
