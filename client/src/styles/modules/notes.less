@@ -1,0 +1,30 @@
+.notes {
+  .flex-container;
+
+  .panel, .panel-body {
+    .flex-container;
+    .flex-column;
+  }
+  .panel-body {
+    overflow: hidden;
+
+    textarea {
+      .flex-grow-base;
+      min-height: @full-size;
+      overflow: auto;
+      resize: none;
+      background-color: @white-color;
+      background-image: linear-gradient(90deg, @transparent-color 79px, transparent 81px), linear-gradient(@light-gray-color .1em, transparent .1em);
+      background-size: 100% 2em;
+      border-width: 0 0 2px 0;
+      border-style: solid;
+      border-color: @light-gray-color02;
+      .reset-padding;
+      line-height: 2em;
+
+      &:focus, &:active{
+        border-color: @vivid-blue-color;
+      }
+    }
+  }
+}
