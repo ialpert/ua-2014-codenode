@@ -16,7 +16,7 @@ angular.module('interviewer')
        * @param {Object} rawModel Model to be synchronized
        */
       init: function(rawModel) {
-        state = racer.createModel(rawModel);
+        state = racer.createModel(rawModel).pass({local: true});
       },
 
       /**
