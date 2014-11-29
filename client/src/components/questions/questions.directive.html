@@ -36,7 +36,12 @@
             </div>
 
             <div class="label-mark pull-right">
-              <span ng-click="setQuestionState(question, label)" style="cursor: pointer" ng-repeat="(label, sclass) in states" class="label label-{{sclass}}" >{{label}}</span>
+              <span ng-click="setQuestionState(question, label)"
+                    style="cursor: pointer"
+                    ng-repeat="(label, sclass) in states"
+                    class="label label-{{sclass}}"
+                    ng-class="{active: sclass == question.status}">
+                {{label}}</span>
             </div>
           </div>
         </div>
