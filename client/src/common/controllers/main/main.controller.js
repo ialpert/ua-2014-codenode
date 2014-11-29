@@ -1,4 +1,4 @@
 angular.module('interviewer')
-  .controller('MainCtrl', function () {
-    console.log('dfdf');
+  .controller('MainCtrl', function (toaster) {
+    toaster.pop('success', 'Welcome to Interviewer!');
   });
