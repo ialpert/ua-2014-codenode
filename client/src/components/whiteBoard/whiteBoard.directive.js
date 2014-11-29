@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('interviewer')
-  .directive('whiteBoard', function () {
+  .directive('whiteBoard', function (AppState, $timeout) {
 
     var paper = window.paper;
 
@@ -13,6 +13,7 @@ angular.module('interviewer')
         var paperObj = new paper.PaperScope(),
           wrapperBox = $($element).find('.board-holder'),
           ctx = wrapperBox.find('canvas')[0].getContext("2d"),
+          whiteboard,
           path,
           drag = false;
 
@@ -21,6 +22,7 @@ angular.module('interviewer')
         //Set size for canvas
         ctx.canvas.width = wrapperBox.width() - 40;
         ctx.canvas.height = $scope.canvasHeight;
+
 
         $scope.colors = {
           red: '#d32f2f',
@@ -54,12 +56,16 @@ angular.module('interviewer')
         $scope.strokeWidth = $scope.stroksWidth[0].size;
         $scope.ERASER_COLOR = '#fff';
 
+        whiteboard = AppState.getState().at('_page.session').at('whiteboard');
+
         /**
          * Clear data from project
          */
         $scope.clearData = function () {
           paperObj.project.clear();
           paperObj.view.update();
+          //whiteboard.set('data', null);
+          //$scope.setWhiteBoardData([]);
         };
 
         /**
@@ -76,8 +82,10 @@ angular.module('interviewer')
          * Update view
          */
         $scope.setWhiteBoardData = function (data) {
-          paperObj.project.importJSON(data);
-          paperObj.view.update();
+          $timeout(function () {
+            paperObj.project.importJSON(data);
+            paperObj.view.update();
+          });
         };
 
         /**
@@ -103,6 +111,7 @@ angular.module('interviewer')
          */
         function mouseUp() {
           drag = false;
+          whiteboard.set('data', $scope.getWhiteBoardData());
         }
 
         /**
@@ -154,7 +163,7 @@ angular.module('interviewer')
               x: x,
               y: y
             },
-            radius: ($scope.strokeWidth/2)
+            radius: ($scope.strokeWidth / 2)
           });
           myCircle.strokeColor = $scope.currentColor;
           myCircle.fillColor = $scope.currentColor;
@@ -164,7 +173,7 @@ angular.module('interviewer')
          * Component init
          */
         function initPaper() {
-          // paperObj.install($scope);
+          //paperObj.install($scope);
           paperObj.setup('canvas');
         }
 
@@ -183,6 +192,17 @@ angular.module('interviewer')
         $element.on('mouseup touchend', mouseUp);
 
         initPaper();
+
+
+        whiteboard.on('change', 'data', function (val, oldVal, passed) {
+
+          if (!passed.local) {
+            $scope.setWhiteBoardData(val);
+          }
+        });
+
+        $scope.setWhiteBoardData(whiteboard.getCopy('data'));
+
       }
     };
   });
