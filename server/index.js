@@ -1,19 +1,25 @@
 'use strict';
 
-var env, config, express, app, fs, path, lodash, statics, server, racer, io, store, highway;
+var config, express, app, fs, path, lodash, statics, server, racer, io, store,
+  highway, socketIO, liveDbMongo, racerHighway, racerBundle;
 
-env = process.env.NODE_ENV || 'development';
+config = require('./config/' + (process.env.NODE_ENV || 'development'));
 
-config = require('./config/' + env);
 fs = require('fs');
 path = require('path');
+
 lodash = require('lodash');
 express = require('express');
 racer = require('racer');
+socketIO = require('socket.io');
+liveDbMongo = require('livedb-mongo');
 
-app = express();
+racerHighway = require('racer-highway');
+racerBundle = require('racer-bundle');
 
 statics = [];
+
+app = express();
 
 lodash.each(config.express.static, function(route) {
   if ((route[1])) {
@@ -26,27 +32,19 @@ lodash.each(config.express.static, function(route) {
   }
 });
 
-server = app.listen(config.express.listen, function() {
+server = app.listen(config.express.listen);
 
-  var host, port;
+io = socketIO(server);
 
-  host = server.address().address;
-  port = server.address().port;
-
-  console.log('http://%s:%s', host, port);
-});
-
-io = require('socket.io')(server);
-
-racer.use(require('racer-bundle'));
+racer.use(racerBundle);
 
 store = racer.createStore({
   server: server,
 
-  db: require('livedb-mongo')(config.mongoose.connection, config.mongoose.options)
+  db: liveDbMongo(config.mongoose.connection, config.mongoose.options)
 });
 
-highway = require('racer-highway')(store);
+highway = racerHighway(store);
 
 server.on('upgrade', highway.upgrade);
 
