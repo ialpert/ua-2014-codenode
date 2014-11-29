@@ -1,9 +1,10 @@
 'use strict';
 
-var config, express, app, fs, path, lodash, statics, server, racer, io, store,
+var env, config, express, app, fs, path, lodash, statics, server, racer, io, store,
   highway, socketIO, liveDbMongo, racerHighway, racerBundle;
 
-config = require('./config/' + (process.env.NODE_ENV || 'development'));
+env = (process.env.NODE_ENV || 'development');
+config = require('./config/' + env);
 
 fs = require('fs');
 path = require('path');
@@ -32,7 +33,14 @@ lodash.each(config.express.static, function(route) {
   }
 });
 
-server = app.listen(config.express.listen);
+server = app.listen(config.express.listen, function() {
+  var host, port;
+
+  host = server.address().address;
+  port = server.address().port;
+
+  console.log('App (%s) is running at: http://%s:%s', env, host, port);
+});
 
 io = socketIO(server);
 
