@@ -7,18 +7,28 @@
  * Directive for the question list.
  */
 angular.module('interviewer')
-  .directive('questions', function ($mdDialog, AppState, lodash, Room) {
+  .directive('questions', function ($mdDialog, AppState, lodash, Room, $timeout) {
     return {
       restrict   : 'E',
       templateUrl: 'components/questions/questions.directive.html',
       scope      : {},
       link       : function ($scope) {
-        /**
-         * @describe
-         * Current selected question.
-         * @type {Object}
-         */
-        $scope.currentQuestion = null;
+        var questionsSync, currentQuestionSync;
+
+        // OT staff
+        questionsSync = AppState.getState().at('_page.session').at('questions');
+
+        // Set default values if they have not been instantiated yet.
+        questionsSync.setNull([]);
+
+        // Syncing main question list
+        questionsSync.on('all', '**', function(questionId, vals, passed) {
+          if (passed && !passed.local) {
+            $timeout(function () {
+              $scope.questions = questionsSync.getDeepCopy();
+            });
+          }
+        });
 
         /**
          * List of question states.
@@ -30,23 +40,8 @@ angular.module('interviewer')
           'oops...': 'danger'
         };
 
-        $scope.questions = [
-          {
-            text  : 'q1',
-            code  : 'function',
-            author: 'rus'
-          },
-          {
-            text  : 'q2',
-            code  : 'function()',
-            author: 'rus'
-          },
-          {
-            text  : 'q3',
-            code  : 'function()',
-            author: 'rus'
-          }
-        ];
+        $scope.questions = questionsSync.getDeepCopy();
+
 
         /**
          * @describe
@@ -88,13 +83,18 @@ angular.module('interviewer')
          */
         $scope.setQuestionState = function (question, label) {
           question.status = $scope.states[label];
+          questionsSync.at($scope.questions.indexOf(question)).set('status', question.status);
         };
 
         /**
          * @param {Object} question Changes the current question.
          */
         $scope.selectQuestion = function (question) {
-          $scope.currentQuestion = question;
+          $scope.questions.forEach(function (q) {
+            q.isCurrent = false;
+          });
+          question.isCurrent = true;
+          questionsSync.set(angular.copy($scope.questions));
         };
 
         /**
@@ -104,9 +104,18 @@ angular.module('interviewer')
         $scope.removeQuestion = function ($event, question) {
           $event.stopPropagation();
           if (confirm('Do you really want to remove this question?')) {
+            questionsSync.remove($scope.questions.indexOf(question));
             lodash.remove($scope.questions, question);
           }
         };
+
+        //$scope.onSort = function(e, ui) {
+        //  questionsSync.move(ui.item.beforeIdx, ui.item.index());
+        //};
+        //
+        //$scope.beforeSort = function(e, ui) {
+        //  ui.item.beforeIdx = ui.item.index();
+        //};
 
         /**
          * @description
@@ -127,13 +136,16 @@ angular.module('interviewer')
             }
           })
             .then(function (questionFromPopup) {
+              // @todo(M.O.C.K.): No time for explaining, just keep it as is for the demo.
               if (isNew) {
                 questionFromPopup.author = Room.token;
                 $scope.questions.push(questionFromPopup);
+                questionsSync.push(questionFromPopup);
               } else {
                 question.text = questionFromPopup.text;
                 question.editor = questionFromPopup.editor;
                 question.author = Room.token;
+                questionsSync.set($scope.questions.indexOf(question), angular.copy(question));
               }
             });
         };

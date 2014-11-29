@@ -3,7 +3,7 @@
     <div class="panel-heading">
       Question List
       <span class="question-add icon-preview icons-material pull-right">
-        <i class="mdi-content-add-box" ng-click="showEditQuestionPopup()"></i>
+        <i class="mdi-content-add-box" ng-click="showEditQuestionPopup($event)"></i>
       </span>
     </div>
 
@@ -12,11 +12,10 @@
     </progress>
 
     <div class="panel-body well">
-      <div>
-
+      <div ng-model="questions">
         <div class="list-group {{question.status}}"
              ng-repeat="question in questions"
-             ng-class="{current: currentQuestion == question}"
+             ng-class="{current: !!question.isCurrent}"
              ng-click="selectQuestion(question)">
           <a class="list-group-item">
             <h4 class="list-group-item-heading">{{question.text}}</h4>
