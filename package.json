@@ -1,7 +1,7 @@
 {
   "name": "interviewer",
   "description": "Mind blowing app for assessment sessions",
-  "version": "0.0.1-6",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {},
   "contributors": [
@@ -37,7 +37,7 @@
     }
   ],
   "scripts": {
-    "start": "node backend/index.js"
+    "start": "node srv"
   },
   "devDependencies": {},
   "analyze": false,
