@@ -1,14 +1,16 @@
 {
   "name": "interviewer",
   "description": "Mind blowing app for assessment sessions",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "private": true,
   "dependencies": {
     "express": "^4.10.4",
     "livedb-mongo": "^0.4.1",
+    "lodash": "^2.4.1",
     "racer": "^0.6.0-alpha24",
     "racer-bundle": "^0.1.1",
-    "racer-highway": "^2.0.0"
+    "racer-highway": "^2.0.0",
+    "socket.io": "^1.2.1"
   },
   "contributors": [
     {
