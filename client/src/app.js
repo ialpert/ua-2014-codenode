@@ -14,6 +14,7 @@ angular.module('interviewer', [
   'services.examinerTransport',
   'services.requestTracker',
   'ngClipboard',
+  'yaru22.angular-timeago',
   'ui.sortable'
 ])
   .config(function(ngClipProvider) {
