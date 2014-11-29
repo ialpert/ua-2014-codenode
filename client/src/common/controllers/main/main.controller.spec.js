@@ -12,11 +12,14 @@ describe('Controller: MainCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
-      $scope: scope
+      $scope: scope,
+      toaster: {
+        pop: function () {}
+      }
     });
   }));
   // TODO (mock): create real test
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(true).toBeTruthy();
+  xit('should great the user with toaster', function () {
+
   });
 });

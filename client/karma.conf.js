@@ -34,8 +34,9 @@ module.exports = function(config) {
       'src/bower_components/zeroclipboard/dist/ZeroClipboard.js',
       'src/bower_components/ng-clip/src/ngClip.js',
       'src/bower_components/angular-ui-sortable/sortable.js',
-      'src/test/**/*.js',
+      'src/bower_components/angular-notify-toaster/toaster.js',
       'src/common/services/iorest/iorest.service.js',
+      'src/test/**/*.js',
       'src/*.js',
       'src/common/**/*.js',
       'src/components/**/*.js'
