@@ -1,1 +1,33 @@
+<div class="whiteboard">
+  <div class="panel panel-warning">
+    <div class="panel-heading">Whiteboard</div>
+    <div class="panel-body">
+      <div class="board-holder" layout="row" layout-align="center">
+        <md-card class="md-default-theme work-holder">
+          <canvas id="canvas" width="100%" height="100%"></canvas>
+        </md-card>
+      </div>
+    </div>
 
+    <div class="panel-aside whiteboard-control-action">
+      <div class="icon-preview icons-material">
+        <span ng-click="clearData()"><i class="mdi-action-delete"></i></span>
+      </div>
+      <div class="icon-preview icons-material">
+        <span ng-click="eraserActive()"><i class="mdi-action-flip-to-front"></i></span>
+      </div>
+      <div class="icon-preview icons-materials">
+        <i class="mdi-image-colorize"></i>
+      </div>
+    </div>
+
+    <div class="panel-aside whiteboard-color-picker">
+      <ul class="colors-list">
+        <li ng-repeat="(colorName, colorValue) in colors" ng-class="{'active': $index == selectedIndex}"
+            ng-click="setCurrentColor(colorValue, $index)" style="background:{{colorValue}}"><i
+          class="mdi-toggle-radio-button-on"></i></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
