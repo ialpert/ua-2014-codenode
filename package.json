@@ -1,0 +1,48 @@
+{
+  "name": "interviewer",
+  "description": "Mind blowing app for assessment sessions",
+  "version": "0.0.1-6",
+  "private": true,
+  "dependencies": {},
+  "contributors": [
+    {
+      "name": "Igor Alpert",
+      "email": "Igor_Alpert@epam.com"
+    },
+    {
+      "name": "Svitlana Ivanytska",
+      "email": "Svitlana_Ivanytska@epam.com"
+    },
+    {
+      "name": "Ruslan Kesheshyan",
+      "email": "Ruslan_Kesheshyan@epam.com"
+    },
+    {
+      "name": "Olesia Kovalova",
+      "email": "Olesia_Kovalova@epam.com"
+    },
+    {
+      "name": "Andrii Gordiichuk",
+      "email": "Andrii_Gordiichuk@epam.com"
+    },
+    {
+      "name": "Pavlo Velykyi",
+      "email": "Pavlo_Velykyi@epam.com"
+    }
+  ],
+  "repository": [
+    {
+      "type": "git",
+      "url": "git://git.epam.com:hackathons/ua-2014-codenode.git"
+    }
+  ],
+  "scripts": {
+    "start": "node backend/index.js"
+  },
+  "devDependencies": {},
+  "analyze": false,
+  "subdomain": "interviewer",
+  "engines": {
+    "node": "0.10.x"
+  }
+}
