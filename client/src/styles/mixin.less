@@ -1,0 +1,42 @@
+/* MIXINS */
+
+/* Text transformation */
+.capitalize{
+  text-transform: capitalize;
+}
+.uppercase{
+  text-transform: uppercase;
+}
+.lowercase{
+  text-transform: lowercase;
+}
+.italic{
+  font-style: italic;
+}
+.normal-weight{
+  font-weight: normal;
+}
+.no-text-decoration{
+  text-decoration: none;
+}
+
+.center {
+  margin: auto;
+}
+
+.transition-all{
+  -webkit-transition: all 0.25s linear;
+  -moz-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+
+.reset-border-top-radius{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.border-radius(@radius) { /*  .border-radius(4px);  */
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
