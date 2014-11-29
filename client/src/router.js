@@ -36,6 +36,7 @@ angular.module('interviewer')
 
             // Init application state and global room value.
             session.then(function(rawModel) {
+
               // Init AppState with raw model from the server.
               AppState.init(rawModel);
 
@@ -44,6 +45,8 @@ angular.module('interviewer')
               Room.interview = AppState.getState().at('_page.user.interview').get();
               Room.me = AppState.getState().at('_page.user').getCopy();
             });
+
+            return session;
           }
         }
       })
