@@ -11,6 +11,7 @@ angular.module('interviewer')
     return {
       restrict: 'E',
       templateUrl: 'components/questions/questions.directive.html',
+      scope: {},
       link: function($scope) {
 
       }
