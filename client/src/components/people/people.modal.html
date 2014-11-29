@@ -1,0 +1,52 @@
+<md-dialog>
+  <md-content>
+    <md-subheader class="md-sticky-no-effect">Add a member</md-subheader>
+    <div class="modal-body">
+
+      <md-list>
+        <md-item ng-repeat="person in people">
+          <md-item-content>
+            <div class="md-tile-content">
+              <p>{{person.name}} ({{person.status}})</p>
+
+              <p><a ng-href="/#/room/{{person.id}}" target="_blank">Share invite</a></p>
+              <md-button md-no-ink class="md-primary" clip-copy="">Copy</md-button>
+              <md-button md-no-ink class="md-warn" ng-click="reject(person)">Reject</md-button>
+            </div>
+          </md-item-content>
+        </md-item>
+      </md-list>
+
+      <form class="form-horizontal" novalidate name="form">
+        <fieldset>
+          <div class="form-group">
+            <label for="select" class="col-lg-2 control-label">Role</label>
+
+            <div class="col-lg-10">
+              <select class="form-control" id="select" ng-model="newPerson.status" ng-options="status for status in statuses" required></select>
+              <span class="material-input"></span>
+            </div>
+          </div>
+
+          <div class="form-group" ng-hide="participantSessionId">
+            <label for="inputName" class="col-lg-2 control-label">Name</label>
+
+            <div class="col-lg-10">
+              <div class="form-control-wrapper">
+                <input type="text" class="form-control empty" id="inputName" placeholder="Name" kl_vkbd_parsed="true" ng-model="newPerson.name" required><span
+                class="material-input"></span></div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </md-content>
+  <div class="md-actions" layout="row">
+    <md-button ng-click="cancel()" ng-hide="participantSessionId">Cancel</md-button>
+    <md-button ng-click="cancel()" class="md-primary" ng-disabled="form.$invalid" ng-show="participantSessionId">Close
+    </md-button>
+    <md-button ng-click="join(newPerson)" class="md-primary" ng-disabled="form.$invalid" ng-hide="participantSessionId">
+      Invite
+    </md-button>
+  </div>
+</md-dialog>
