@@ -59,4 +59,22 @@ module.exports = function(grunt) {
     'open',
     'watch'
   ]);
+
+  grunt.registerTask('build', [
+    'test',
+    'clean',
+    'copy',
+    'less:dev',
+    'autoprefixer',
+    'useminPrepare',
+    'imagemin',
+    'concat',
+    'ngAnnotate',
+    'cssmin',
+    'uglify',
+    'usemin',
+    'htmlmin',
+    'clean:tmp'
+  ]);
+
 };
