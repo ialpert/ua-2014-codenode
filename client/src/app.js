@@ -12,6 +12,7 @@ angular.module('interviewer', [
   'ui.ace',
   'racer',
   'services.examinerTransport',
+  'services.requestTracker',
   'ngClipboard',
   'ui.sortable'
 ])
