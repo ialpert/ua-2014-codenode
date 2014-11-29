@@ -3,7 +3,7 @@
     <div class="panel-heading">Video Conference</div>
     <div class="panel-body">
       <div class="remote-videos" layout="row" layout-align="center">
-        <md-card ng-repeat="peer in peers" remote-video>
+        <md-card ng-repeat="peer in peers" remote-video flex>
           <div class="video-holder">
             <md-progress-linear class="peer-volume" md-mode="determinate" ng-value="peer.volume"></md-progress-linear>
           </div>

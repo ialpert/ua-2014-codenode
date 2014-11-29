@@ -12,12 +12,12 @@ angular.module('interviewer')
       restrict: 'E',
       scope: {},
       templateUrl: 'components/videoConference/videoConference.directive.html',
-      controller: function($scope, config, Room) {
+      controller: function($scope, config, WebRTC, Room) {
         $scope.localVideoEnabled = false;
         $scope.micEnabled = false;
         $scope.peers = {};
 
-        $scope.webrtc = new SimpleWebRTC({
+        $scope.webrtc = new WebRTC({
           url: config.webrtcSignalingUrl,
           // the id/element dom element that will hold "our" video
           localVideoEl: 'conference-local-video',
@@ -32,7 +32,7 @@ angular.module('interviewer')
 
         var events = {
           readyToCall: function() {
-            $scope.webrtc.joinRoom(Room.id);
+            $scope.webrtc.joinRoom(Room.interview);
             $scope.localVideoEnabled = true;
             $scope.micEnabled = true;
           },
