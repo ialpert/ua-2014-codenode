@@ -1,7 +1,7 @@
 {
   "name": "interviewer",
   "description": "Mind blowing app for assessment sessions",
-  "version": "0.0.1-1",
+  "version": "0.0.1-2",
   "private": true,
   "dependencies": {
     "async": "^0.9.0",
