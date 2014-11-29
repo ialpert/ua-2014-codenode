@@ -5,8 +5,12 @@
   <title>Interviewer</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- build:css /css/main.min.css -->
   <link rel="stylesheet" href="css/main.css">
+  <!-- endbuild -->
+  <!-- build:js /js/modernizr.js -->
   <script src="bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
 </head>
 <body>
   <!-- Container for toaster notification system. -->
@@ -14,6 +18,7 @@
   <!--Global loading spinner-->
   <!--<loading><md-progress-linear md-mode="indeterminate"></md-progress-linear></loading>-->
   <main class="interviewer" ui-view></main>
+  <!-- build:js /js/app.js -->
   <!-- bower:js -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
@@ -55,5 +60,7 @@
   <!-- transports:end -->
   <!--<script src="common/services/iorest/iorest.service.js"></script>-->
   <!--<script src="common/services/requestTracker/requestTracker.service.js"></script>-->
+
+  <!-- endbuild -->
 </body>
 </html>
