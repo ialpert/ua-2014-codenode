@@ -24,12 +24,14 @@
   margin: auto;
 }
 
+/* Animation */
 .transition-all{
   -webkit-transition: all 0.25s linear;
   -moz-transition: all 0.25s linear;
   transition: all 0.25s linear;
 }
 
+/* Borders */
 .reset-border-top-radius{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -40,3 +42,28 @@
   -moz-border-radius: @radius;
   border-radius: @radius;
 }
+
+/* Flexbox */
+.flex-container{
+  display: flex;
+  flex: 1;
+}
+
+.flex-item{}
+.flex-grow-none{
+  flex: 1 0 auto;
+}
+.flex-grow-base{
+  flex: 1;
+}
+.flex-grow-twice{
+  flex: 2 1 auto;
+}
+
+.flex-column{
+  flex-direction: column;
+}
+.flex-row{
+  flex-direction: row;
+}
+

@@ -1,7 +1,6 @@
 html, body {
   height: @full-height;
   min-height: @full-height;
-  background-color: #eee;
 }
 
 /* Main area */
@@ -28,7 +27,36 @@ html, body {
     text-align: center;
   }
 
-  .center {
-    margin: auto;
+
+  .flex-container{
+    .flex-container;
+    position: relative;
   }
+
+  .flex-item{
+    &:nth-child(1), &:nth-child(3) {
+      position: fixed;
+      top: 20px;
+      bottom: 20px;
+      .flex-container;
+    }
+    &:nth-child(1) {
+      left: 0;
+
+      & > * {
+        .flex-container
+      }
+    }
+    &:nth-child(3) {
+      right: 0;
+      .flex-column;
+    }
+  }
+
+  .main-flex-item{
+    .flex-container;
+    .flex-grow-twice;
+    .flex-column;
+  }
+
 }
