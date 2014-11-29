@@ -19,6 +19,14 @@ require('./socketSuite')({describe: 'Interview IO', socketURL: 'http://localhost
 
   });
 
+  it('interview:setup -- invalid', function(done) {
+
+    this.socket.emit('interview:setup', {}, function(data) {
+      suite.fail(data);
+      done();
+    });
+  });
+
   it('interview:join', function(done) {
 
     this.socket.emit('interview:join', {token: headAccessId}, function(data) {

@@ -1,8 +1,10 @@
 'use strict';
 
 module.exports = function(store) {
+  var leet, model;
 
-  var model = store.createModel();
+  leet = require('l33teral');
+  model = store.createModel();
 
   return {
 
@@ -12,69 +14,90 @@ module.exports = function(store) {
       userRef = model.id();
       sessionRef = model.id();
 
-      head = {
-        name: data.data.name,
-        status: 'head',
-        interview: sessionRef
-      };
+      data = leet(data);
 
-      session = {};
-
-      model.set('users.' + userRef, head, function() {
-        model.set('interviewSession.' + sessionRef, session, function() {
-
-          fn({
-            result: {
-              accessId: userRef
-            },
-
-            error: null
-          });
-
+      if (!data.probe('data.name')) {
+        fn({
+          result: null,
+          error: 'No head information provided'
         });
-      });
+
+      } else {
+
+        head = {
+          name: data.tap('data.name'),
+          status: 'head',
+          interview: sessionRef
+        };
+
+        session = {};
+
+        model.set('users.' + userRef, head, function() {
+          model.set('interviewSession.' + sessionRef, session, function() {
+
+            fn({
+              result: {
+                accessId: userRef
+              },
+
+              error: null
+            });
+
+          });
+        });
+      }
     },
 
     join: function(data, fn) {
       var user, sessionRef, userRef, people;
 
-      userRef = 'users.' + data.token;
+      data = leet(data);
 
-      model.fetch(userRef, function() {
-        user = model.get(userRef);
+      if (data.probe('token')) {
 
-        if (user && user.interview) {
+        userRef = 'users.' + data.tap('token');
 
-          people = model.query('people', {interview: user.interview});
-          people.subscribe();
+        model.fetch(userRef, function() {
+          user = model.get(userRef);
 
-          model.set('_page.token', data.token);
-          model.set('_page.sessionToken', user.interview);
+          if (user && user.interview) {
 
-          sessionRef = 'interviewSession.' + user.interview;
+            people = model.query('people', {interview: user.interview});
+            people.subscribe();
 
-          model.ref('_page.user', userRef);
-          model.ref('_page.session', sessionRef);
+            model.set('_page.token', data.tap('token'));
+            model.set('_page.sessionToken', user.interview);
 
-          model.subscribe('_page.user', '_page.session', function() {
+            sessionRef = 'interviewSession.' + user.interview;
 
-            model.bundle(function(err, bundle) {
+            model.ref('_page.user', userRef);
+            model.ref('_page.session', sessionRef);
 
-              fn({
-                result: bundle,
-                error: null
+            model.subscribe('_page.user', '_page.session', function() {
+
+              model.bundle(function(err, bundle) {
+
+                fn({
+                  result: bundle,
+                  error: null
+                });
               });
             });
-          });
 
-        } else {
-          fn({
-            error: 'Invalid user session token'
-          });
-        }
-      });
+          } else {
+            fn({
+              error: 'Invalid user session token'
+            });
+          }
+        });
+      } else {
+        fn({
+          result: null,
+          error: 'No token information provided'
+        });
+      }
+
     }
-
   };
 };
 
