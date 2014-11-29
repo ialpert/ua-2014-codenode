@@ -1,0 +1,112 @@
+.whiteboard {
+  position: relative;
+
+  .panel-heading {
+    background-color: @vivid-blue-color;
+  }
+
+  .panel-body {
+    padding: 0;
+
+    .board-holder {
+      margin: 15px 70px 15px 40px;
+      border: 1px solid @light-gray-color02;
+
+      md-card {
+        .box-sizing;
+        .box-shadow(none);
+        .reset-indents;
+        .border-radius(0);
+        .full-width;
+
+        canvas {
+          .full-width;
+
+          &:active {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .panel-aside {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    background: @very-light-gray-color;
+    padding-top: 10px;
+
+    &.whiteboard-control-action {
+      left: 0;
+      width: 40px;
+    }
+    &.whiteboard-color-picker {
+      right: 0;
+      width: 61px;
+
+      .colors-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+
+        & li {
+          .border-radius(50%);
+          display: inline-block;
+          vertical-align: middle;
+          width: 20px;
+          height: 20px;
+          margin: 5px;
+          position: relative;
+          border: 1px solid @light-gray-color02;
+        }
+
+        & .mdi-toggle-radio-button-on {
+          font-size: @colors-radio-btn-font-size;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -20px 0 0 -20px;
+          .opacity(0);
+          .transition(all 0.25s linear);
+        }
+
+        & .active .mdi-toggle-radio-button-on {
+          font-size: @colors-radio-btn-active-font-size;
+          margin: -10px 0 0 -10px;
+          .opacity;
+        }
+      }
+    }
+  }
+
+  .icon-preview {
+    margin: 5px;
+
+    span {
+      .border-radius(0);
+      .reset-padding;
+      color: @black-color;
+      background: @white-color;
+      z-index: 0;
+      display: inline-block;
+      position: static;
+    }
+
+    i {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: @icon-font-size;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.73);
+      .opacity(0.84);
+
+      &:hover {
+        .opacity(1);
+      }
+    }
+  }
+}
