@@ -1,29 +1,27 @@
 'use strict';
 
 angular.module('interviewer')
-  .directive('whiteBoard', function (AppState) {
+  .directive('whiteBoard', function () {
 
-    var paper, project, view;
-
-    paper = window.paper;
-    project = window.project;
-    view = window.view;
+    var paper = window.paper;
 
     return {
       restrict: 'AEC',
       templateUrl: 'components/whiteBoard/whiteBoard.html',
-      link: function ($scope, $element) {
 
-        var wrapperBox = $($element).find('.board-holder'),
+      link: function ($scope, $element) {
+        var paperObj = new paper.PaperScope(),
+          wrapperBox = $($element).find('.board-holder'),
           ctx = wrapperBox.find('canvas')[0].getContext("2d"),
           path,
           drag = false;
+
+        $scope.canvasHeight = 400;
 
         //Set size for canvas
         ctx.canvas.width = wrapperBox.width() - 40;
         ctx.canvas.height = $scope.canvasHeight;
 
-        $scope.canvasHeight = 400;
         $scope.colors = {
           red: '#d32f2f',
           pink: '#c2185b',
@@ -58,8 +56,8 @@ angular.module('interviewer')
          * Clear data from project
          */
         $scope.clearData = function () {
-          project.clear();
-          view.update();
+          paperObj.project.clear();
+          paperObj.view.update();
         };
 
         /**
@@ -68,7 +66,7 @@ angular.module('interviewer')
          * @returns {*}
          */
         $scope.getWhiteBoardData = function () {
-          return project.exportJSON();
+          return paperObj.project.exportJSON();
         };
 
         /**
@@ -76,8 +74,8 @@ angular.module('interviewer')
          * Update view
          */
         $scope.setWhiteBoardData = function (data) {
-          project.importJSON(data);
-          view.update();
+          paperObj.project.importJSON(data);
+          paperObj.view.update();
         };
 
         /**
@@ -124,7 +122,7 @@ angular.module('interviewer')
         function mouseDown(event) {
           //Set flag to detect mouse drag
           drag = true;
-          path = new paper.Path();
+          path = new paperObj.Path();
 
           path.strokeColor = $scope.currentColor;
           path.strokeWidth = $scope.strokeWidth;
@@ -140,7 +138,7 @@ angular.module('interviewer')
          * @param y
          */
         function drawPath(x, y) {
-          path.add(new paper.Point(x, y));
+          path.add(new paperObj.Point(x, y));
         }
 
         /**
@@ -149,7 +147,7 @@ angular.module('interviewer')
          * @param y
          */
         function drawPoint(x, y) {
-          var myCircle = new paper.Path.Circle({
+          var myCircle = new paperObj.Path.Circle({
             center: {
               x: x,
               y: y
@@ -164,23 +162,23 @@ angular.module('interviewer')
          * Component init
          */
         function initPaper() {
-          paper.install(window);
-          paper.setup('canvas');
+          // paperObj.install($scope);
+          paperObj.setup('canvas');
         }
 
-        $element.bind('mousedown', function (event) {
-          if (event.srcElement.id === 'canvas') {
+        $element.bind('mousedown touchstart', function (event) {
+          if (event.originalEvent.srcElement.id === 'canvas') {
             mouseDown(event);
           }
         });
 
-        $element.bind('mousemove', function (event) {
-          if (event.srcElement.id === 'canvas') {
+        $element.bind('mousemove touchmove', function (event) {
+          if (event.originalEvent.srcElement.id === 'canvas') {
             mouseDrag(event);
           }
         });
 
-        $element.on('mouseup', mouseUp);
+        $element.on('mouseup touchend', mouseUp);
 
         initPaper();
       }
