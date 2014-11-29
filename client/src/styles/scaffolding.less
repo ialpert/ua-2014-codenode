@@ -1,6 +1,6 @@
 html, body {
-  height: @full-height;
-  min-height: @full-height;
+  .full-height;
+  min-height: @full-size;
 }
 
 /* Main area */
@@ -27,7 +27,7 @@ html, body {
     text-align: center;
   }
 
-
+  /* Flexbox */
   .flex-container{
     .flex-container;
     position: relative;
@@ -44,7 +44,7 @@ html, body {
       left: 0;
 
       & > * {
-        .flex-container
+        .flex-container;
       }
     }
     &:nth-child(3) {
@@ -59,4 +59,78 @@ html, body {
     .flex-column;
   }
 
+}
+
+
+/* Angular Components */
+md-dialog {
+  .reset-padding;
+
+  md-content {
+    .reset-padding;
+
+    .modal-body{
+      .aside-base-padding;
+    }
+
+    .md-subheader.md-default-theme {
+      font-size: @heading-font-size;
+      .uppercase;
+      color: @white-color;
+      opacity: 0.84;
+      background-color: @bright-blue-color;
+      .bottom-base-margin;
+    }
+
+    .form-horizontal {
+      .form-group {
+        .reset-aside-margin;
+
+        .link-field {
+          .form-control {
+            .italic;
+            color: @bright-blue-color;
+            border-bottom: 0;
+            padding: 6px;
+            height: 34px;
+          }
+        }
+
+        select.form-control {
+          .capitalize;
+        }
+
+        p {
+          .aside-base-padding;
+        }
+      }
+    }
+
+    md-input-group, .md-input-group{
+      .bottom-base-margin;
+    }
+
+    .md-button.md-default-theme:hover,
+    .md-button.md-default-theme:focus {
+      background-color: rgba(158, 158, 158, 0.2) !important;
+    }
+
+    .ace-tm .ace_print-margin{
+      .reset-width;
+      background: @transparent-color;
+    }
+  }
+}
+
+md-input-group input, md-input-group textarea,
+.md-input-group input, .md-input-group textarea {
+  width: @full-width !important;
+}
+
+md-backdrop.md-opaque.md-default-theme {
+  position: fixed;
+}
+
+md-backdrop.md-opaque.md-default-theme ~ .interviewer {
+  overflow: hidden;
 }
