@@ -62,10 +62,7 @@ angular.module('interviewer')
          * Clear data from project
          */
         $scope.clearData = function () {
-          paperObj.project.clear();
-          paperObj.view.update();
-          //whiteboard.set('data', null);
-          //$scope.setWhiteBoardData([]);
+          whiteboard.set('data', null);
         };
 
         /**
@@ -198,6 +195,11 @@ angular.module('interviewer')
 
           if (!passed.local) {
             $scope.setWhiteBoardData(val);
+          }
+
+          if (!val) {
+            paperObj.project.clear();
+            paperObj.view.update();
           }
         });
 
