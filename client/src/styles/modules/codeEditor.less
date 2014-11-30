@@ -3,6 +3,19 @@
 
   .panel-heading {
     background-color: @dark-cyan-lime-green-color;
+
+    .form-control {
+      border: none !important;
+      color: @white-color !important;
+      text-transform: uppercase;
+
+      select option {
+        background: #fff;
+      }
+      &:focus {
+        border-bottom-color: @white-color !important;
+      }
+    }
   }
 
   .code-area, .output{
