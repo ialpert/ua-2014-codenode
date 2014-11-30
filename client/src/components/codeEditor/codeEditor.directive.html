@@ -3,8 +3,7 @@
     <div class="panel-heading">
       Code editor
       <div class="pull-right">
-        <md-button ng-click="execute(code)">Run</md-button>
-        <select ng-model="currentMode" style="color: #000" ng-options="mode.value as mode.name for mode in modes"></select>
+        <select ng-model="currentMode" ng-options="mode.value as mode.name for mode in modes"></select>
       </div>
     </div>
     <loading>
@@ -13,7 +12,9 @@
     <div class="panel-body">
 
       <div class="panel panel-default code-area">
-        <div class="panel-heading">Your code here</div>
+        <div class="panel-heading">Code here
+          <md-button class="run-code pull-right" ng-click="execute(code)">Run</md-button>
+        </div>
         <div class="panel-body">
           <div ng-model="code" ui-ace="{
                   useWrapMode : false,
