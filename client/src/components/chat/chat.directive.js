@@ -13,7 +13,17 @@ angular.module('interviewer')
       templateUrl: 'components/chat/chat.directive.html',
       scope: {},
       link: function($scope, element) {
-        var chats, selectedChat;
+        var chats, selectedChat, TOP_CHAT_PANEL_HEIGHT = 40;
+
+        /**
+         * Recalculation height for holder box
+         */
+        var chatHolder = element.find('.chat'),
+          chatContent = element.find('.md-tabs-content');
+
+        chatContent.css({
+          height: chatHolder.height() - TOP_CHAT_PANEL_HEIGHT
+        });
 
         chats = AppState.getState().at('_page.session').at('chats');
         selectedChat = AppState.getState().at('_page.user').at('selectedChat');
