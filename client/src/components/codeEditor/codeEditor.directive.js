@@ -44,6 +44,10 @@ angular.module('interviewer')
           questionsSync.at($scope.currentQuestionSync).at('editor.code').set($scope.code);
         };
 
+        AppState.getState().at('_page.session').at('editor.executionResult').on('change', '', function(path, val) {
+          $scope.executionResult = val;
+        });
+
         /**
          * Execute code on the server
          * @param code
