@@ -75,6 +75,7 @@ angular.module('interviewer')
         });
 
         chats.on('insert', '*.messages', function(chatId, vals, passed) {
+          console.log(passed);
           if (passed && !passed.local) {
             $timeout(function() {
               chatId = parseInt(chatId);

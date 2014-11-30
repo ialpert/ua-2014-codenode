@@ -38,7 +38,6 @@ angular.module('interviewer')
         });
 
         questionsSync.on('all', '**', function(path, val, oldVal, passed) {
-          console.log(arguments);
           $timeout(function() {
             $scope.questions = lodash.values(lodash.cloneDeep(questionsSync.get()));
           });
@@ -108,7 +107,6 @@ angular.module('interviewer')
         $scope.setQuestionState = function(question, status) {
 
           questionsSync.at(question.id).set('status', status, function() {
-            console.log(111);
             question.status = status;
           });
         };

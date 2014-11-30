@@ -21,7 +21,7 @@
         </md-content>
         <div class="list-group {{question.status}}"
              ng-show="questions.length"
-             ng-repeat="question in questions"
+             ng-repeat="question in questions track by $index"
              ng-class="{current: question.id === currentQuestionSync}"
              ng-click="selectQuestion(question)">
           <a class="list-group-item">

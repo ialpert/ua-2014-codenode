@@ -8,7 +8,7 @@
  */
 
 angular.module('interviewer')
-  .directive('codeEditor', function(Languages, AppState) {
+  .directive('codeEditor', function(Languages, AppState, $timeout) {
     return {
       restrict: 'E',
       templateUrl: 'components/codeEditor/codeEditor.directive.html',
@@ -16,24 +16,32 @@ angular.module('interviewer')
         var currentQuestionSync;
 
 
-        var questionsSync, currentQuestionSync;
+        var questionsSync, currentQuestionIdSync;
 
         $scope.modes = Languages;
         $scope.currentMode = 'javascript';
         $scope.code = '';
 
         questionsSync = AppState.getState().at('_page.session').at('questions');
-        currentQuestionSync = AppState.getState().at('_page.session').at('currentQuestionSync');
+        currentQuestionIdSync = AppState.getState().at('_page.session').at('currentQuestionSync');
 
-        currentQuestionSync.on('change', '', function(val) {
+        currentQuestionIdSync.on('change', '', function(val) {
           $scope.currentQuestionSync = val;
-
-          console.log('CODE', questionsSync.at(val).get('editor.code'));
+          $scope.code = questionsSync.at(val).get('editor.code');
+          $scope.safeApply();
         });
 
-        $scope.$watch('code', function () {
-          //currentQuestionSync.at('editor.code').set($scope.code);
+        questionsSync.on('change', '**', function(path, value, oldValue, passed) {
+          if (passed && !passed.local) {
+            $timeout(function () {
+              $scope.code = value;
+            });
+          }
         });
+
+        //$scope.$watch('code', function () {
+        //  //currentQuestionSync.at('editor.code').set($scope.code);
+        //});
 
         //currentQuestionSync = AppState.getState().at('_page.session').at('currentQuestion');
 
@@ -42,9 +50,9 @@ angular.module('interviewer')
         //  editor = _editor;
         //};
         //
-        //$scope.aceChanged = function(e) {
-        //  console.log(e);
-        //};
+        $scope.aceChanged = function(e) {
+          questionsSync.at($scope.currentQuestionSync).at('editor.code').set($scope.code);
+        };
       }
     };
   });
