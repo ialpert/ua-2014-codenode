@@ -17,6 +17,9 @@ angular.module('interviewer')
       },
       join: {
         action: 'join'
+      },
+      execute: {
+        action: 'execute'
       }
 
     });

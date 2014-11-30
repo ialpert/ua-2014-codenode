@@ -3,10 +3,15 @@
     <div class="panel-heading">
       Code editor
       <div class="pull-right">
+        <md-button ng-click="execute(code)">Run</md-button>
         <select ng-model="currentMode" style="color: #000" ng-options="mode.value as mode.name for mode in modes"></select>
       </div>
     </div>
+    <loading>
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </loading>
     <div class="panel-body">
+
       <div ng-model="code" ui-ace="{
                   useWrapMode : false,
                   showGutter: true,
@@ -17,6 +22,7 @@
                   onChange: aceChanged,
                   codeFolding: 'mark-begin'
                 }" style="width: 100%; height: 300px;"></div>
+      <pre ng-repeat="line in executionResult">{{line}}</pre>
     </div>
   </div>
 </div>

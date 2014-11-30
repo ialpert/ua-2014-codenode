@@ -8,7 +8,7 @@
  */
 
 angular.module('interviewer')
-  .directive('codeEditor', function(Languages, AppState, $timeout) {
+  .directive('codeEditor', function(Languages, AppState, $timeout, Session) {
     return {
       restrict: 'E',
       templateUrl: 'components/codeEditor/codeEditor.directive.html',
@@ -42,6 +42,19 @@ angular.module('interviewer')
 
         $scope.aceChanged = function(e) {
           questionsSync.at($scope.currentQuestionSync).at('editor.code').set($scope.code);
+        };
+
+        /**
+         * Execute code on the server
+         * @param code
+         */
+        $scope.execute = function (code) {
+          Session.execute({
+            code: code
+          })
+          .then(function (response) {
+            $scope.executionResult = response.log;
+          });
         };
       }
     };
