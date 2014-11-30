@@ -64,6 +64,7 @@ io.on('connection', function(socket) {
 
   socket.on('interview:setup', interview.setup);
   socket.on('interview:join', interview.join);
+  socket.on('interview:execute', interview.execute);
 
 });
 

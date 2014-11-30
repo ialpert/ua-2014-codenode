@@ -1,9 +1,10 @@
 'use strict';
 
 module.exports = function(store) {
-  var leet, model;
+  var leet, model, path;
 
   leet = require('l33teral');
+  path = require('path');
   model = store.createModel();
 
   return {
@@ -96,6 +97,38 @@ module.exports = function(store) {
           error: 'No token information provided'
         });
       }
+
+    },
+
+    execute: function(data, fn) {
+
+      process.env.RUNNER_TYPE = 'node';
+      process.env.RUNNER_DIR = path.resolve(__dirname + '/../runner');
+
+      var Runner = require('../runner');
+
+      Runner.run({
+        code: data.data.code || '',
+        preload: '',
+        tests: '',
+        timeout: 1000,
+        displayErrors: true,
+        report: function(report) {
+
+          if (report.status === 'success') {
+            fn({
+              error: null,
+              result: report
+            });
+
+          } else {
+            fn({
+              error: report.__tests.error,
+              result: report
+            });
+          }
+        }
+      });
 
     }
   };

@@ -43,4 +43,22 @@ require('./socketSuite')({describe: 'Interview IO', socketURL: 'http://localhost
     });
   });
 
+  it('interview:execute', function(done) {
+
+    this.socket.emit('interview:execute', {data: {code: 'var a = 5;'}}, function(data) {
+      suite.success(data);
+      done();
+    });
+
+  });
+
+  it('interview:execute', function(done) {
+
+    this.socket.emit('interview:execute', {data: {code: 'var a = b;'}}, function(data) {
+      expect(data.error).toBe('b is not defined');
+      done();
+    });
+
+  });
+
 });

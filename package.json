@@ -12,10 +12,14 @@
     "racer": "^0.6.0-alpha24",
     "racer-bundle": "^0.1.1",
     "racer-highway": "^2.0.0",
-    "socket.io": "^1.2.1"
+    "socket.io": "^1.2.1",
+    "coffee-script": "^1.8.0",
+    "commander": "^2.3.0",
+    "expectations": "^0.2.5",
+    "tmp": "0.0.24",
+    "mocha": "^1.21.4"
   },
   "devDependencies": {
-    "expectations": "^0.2.5",
     "eyes": "^0.1.8",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",
