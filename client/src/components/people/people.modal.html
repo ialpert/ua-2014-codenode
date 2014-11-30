@@ -12,7 +12,7 @@
               <!--<p><a ui-sref="session({id: person.id})">Share invite</a></p>-->
               <!--<md-button md-no-ink class="md-primary">Copy</md-button>-->
               <!--<md-button md-no-ink class="md-warn" >Reject</md-button>-->
-              <span class="share" tooltip="Share your link"><a ui-sref="session({id: person.id})"></a><i class="mdi-social-share"></i></span>
+              <span class="share" tooltip="Share your link"><a ui-sref="session({id: person.id})" target="_blank"><i class="mdi-social-share"></i></a></span>
               <span class="copy" tooltip="Copy" clip-copy="compileLink(person.id)"><i class="mdi-content-content-copy"></i></span>
               <span class="remove" tooltip="Reject" ng-click="reject(person)"><i class="mdi-content-clear"></i></span>
             </div>

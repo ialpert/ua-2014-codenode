@@ -12,7 +12,7 @@ describe('Filter: link', function () {
   }));
 
   it('should return the correct percentage view of the number', function () {
-    expect(link('Please follow this link https://google.com/')).toBe('Please follow this link <a href="https://google.com/">https://google.com/</a>');
-    expect(link('http://localhost/#/session/a18d6816-efcb-4cf2-b1b7-294bef69bfdf/')).toBe('<a href="http://localhost/#/session/a18d6816-efcb-4cf2-b1b7-294bef69bfdf/">http://localhost/#/session/a18d6816-efcb-4cf2-b1b7-294bef69bfdf/</a>');
+    expect(link('Please follow this link https://google.com/')).toBe('Please follow this link <a href="https://google.com/" target="_blank">https://google.com/</a>');
+    expect(link('http://localhost/#/session/a18d6816-efcb-4cf2-b1b7-294bef69bfdf/')).toBe('<a href="http://localhost/#/session/a18d6816-efcb-4cf2-b1b7-294bef69bfdf/" target="_blank">http://localhost/#/session/a18d6816-efcb-4cf2-b1b7-294bef69bfdf/</a>');
   });
 });
