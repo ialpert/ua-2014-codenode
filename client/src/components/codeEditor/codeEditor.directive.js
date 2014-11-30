@@ -13,9 +13,6 @@ angular.module('interviewer')
       restrict: 'E',
       templateUrl: 'components/codeEditor/codeEditor.directive.html',
       link: function($scope) {
-        var currentQuestionSync;
-
-
         var questionsSync, currentQuestionIdSync;
 
         $scope.modes = Languages;
@@ -25,15 +22,19 @@ angular.module('interviewer')
         questionsSync = AppState.getState().at('_page.session').at('questions');
         currentQuestionIdSync = AppState.getState().at('_page.session').at('currentQuestionSync');
 
-        currentQuestionIdSync.on('change', '', function(val) {
+        function setCode(val) {
           $scope.currentQuestionSync = val;
           $scope.code = questionsSync.at(val).get('editor.code');
           $scope.safeApply();
-        });
+        }
+
+        currentQuestionIdSync.on('change', '', setCode);
+
+        setCode(currentQuestionIdSync.get());
 
         questionsSync.on('change', '**', function(path, value, oldValue, passed) {
           if (passed && !passed.local) {
-            $timeout(function () {
+            $timeout(function() {
               $scope.code = value;
             });
           }
