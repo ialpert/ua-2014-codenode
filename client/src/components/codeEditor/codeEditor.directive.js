@@ -53,7 +53,12 @@ angular.module('interviewer')
             code: code
           })
           .then(function (response) {
+            $scope.error = null;
             $scope.executionResult = response.log;
+          })
+          .catch(function (error) {
+            $scope.error = error.message;
+            $scope.executionResult = null;
           });
         };
       }

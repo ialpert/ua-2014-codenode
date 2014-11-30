@@ -23,6 +23,7 @@
                   codeFolding: 'mark-begin'
                 }" style="width: 100%; height: 300px;"></div>
       <pre ng-repeat="line in executionResult">{{line}}</pre>
+      <pre ng-show="!!error" style="color: #f00">Error: {{error}}</pre>
     </div>
   </div>
 </div>
