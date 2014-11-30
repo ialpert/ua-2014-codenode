@@ -1,8 +1,14 @@
-
 .video-conference {
 
+  .panel-body{
+    padding: 0;
+  }
+
   .remote-videos {
+
     md-card {
+      .reset-padding;
+
       min-width: 100px;
 
       .video-holder {
@@ -16,8 +22,9 @@
       }
     }
   }
+
   .local-video-holder {
-    background: @vivid-blue-color;
+    background: @light-gray-color;
   }
 
   video {
@@ -34,5 +41,16 @@
     &:hover {
       opacity: 1;
     }
+  }
+}
+
+.add-member{
+
+  .md-tile-content{
+    padding: 0 15px;
+  }
+
+  form{
+    margin-top: 10px;
   }
 }

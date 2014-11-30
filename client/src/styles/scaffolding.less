@@ -72,10 +72,25 @@ html, body {
         margin: 0;
       }
     }
+
+    .isCandidate {
+      .flex-item:nth-child(1) {
+        display: none;
+      }
+
+      .main-flex-item {
+        margin: 20px 0 0;
+        width: 70%;
+      }
+
+      .flex-item:nth-child(3) {
+        width: 30%;
+      }
+    }
   }
 
   /* BOOTSTRAP Components */
-  .well{
+  .well {
     padding: 0;
   }
 
@@ -334,15 +349,15 @@ md-dialog {
       display: inline-block;
       vertical-align: middle;
       padding: 0 10px 0 0;
-      font-size:@dropdown-font-size;
+      font-size: @dropdown-font-size;
     }
 
     i {
-      cursor:pointer;
-      font-size:@dropdown-font-size;
+      cursor: pointer;
+      font-size: @dropdown-font-size;
     }
 
-    .md-tile-content span{
+    .md-tile-content span {
       margin-left: 5px;
       display: inline-block;
       vertical-align: middle;
@@ -366,7 +381,6 @@ md-dialog {
       background-color: @bright-blue-color;
       .bottom-base-margin;
     }
-
 
     .form-horizontal {
       .form-group {
