@@ -45,17 +45,14 @@ angular.module('interviewer')
         };
 
         AppState.getState().at('_page.session').at('editor.executionResult').on('change', '', function(path, val) {
-
           $timeout(function() {
-
-            if (val.error) {
+            if (val && val.error) {
               $scope.error = val.error;
               $scope.executionResult = null;
             } else {
               $scope.error = null;
               $scope.executionResult = val.result;
             }
-
           });
         });
 
