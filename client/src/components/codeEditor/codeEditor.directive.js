@@ -33,24 +33,13 @@ angular.module('interviewer')
         setCode(currentQuestionIdSync.get());
 
         questionsSync.on('change', '**', function(path, value, oldValue, passed) {
-          if (passed && !passed.local) {
+          if (passed && !passed.local && angular.isString(value)) {
             $timeout(function() {
               $scope.code = value;
             });
           }
         });
 
-        //$scope.$watch('code', function () {
-        //  //currentQuestionSync.at('editor.code').set($scope.code);
-        //});
-
-        //currentQuestionSync = AppState.getState().at('_page.session').at('currentQuestion');
-
-        //currentQuestionSync.setNull();
-        //$scope.aceLoaded = function(_editor) {
-        //  editor = _editor;
-        //};
-        //
         $scope.aceChanged = function(e) {
           questionsSync.at($scope.currentQuestionSync).at('editor.code').set($scope.code);
         };

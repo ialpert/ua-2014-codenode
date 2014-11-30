@@ -13,6 +13,13 @@ angular.module('interviewer')
      */
     $scope.question = question;
 
+    if (!$scope.editor) {
+      $scope.editor = {
+        code: '',
+        mode: 'javascript'
+      };
+    }
+
     /**
      * @description
      * Closes and saves question.
