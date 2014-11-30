@@ -12,7 +12,7 @@
               <div class="least-content">{{line.time | timeAgo}}</div>
               <h4 class="list-group-item-heading">{{line.author | person}}</h4>
 
-              <p class="list-group-item-text">{{line.message | link}}</p>
+              <p class="list-group-item-text" ng-bind-html="line.message | link"></p>
             </div>
           </div>
         </div>
