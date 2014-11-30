@@ -12,7 +12,10 @@
     </loading>
     <div class="panel-body">
 
-      <div ng-model="code" ui-ace="{
+      <div class="panel panel-default code-area">
+        <div class="panel-heading">Your code here</div>
+        <div class="panel-body">
+          <div ng-model="code" ui-ace="{
                   useWrapMode : false,
                   showGutter: true,
                   theme:'clouds',
@@ -22,8 +25,17 @@
                   onChange: aceChanged,
                   codeFolding: 'mark-begin'
                 }" style="width: 100%; height: 300px;"></div>
-      <pre ng-repeat="line in executionResult">{{line}}</pre>
-      <pre ng-show="!!error" style="color: #f00">Error: {{error}}</pre>
+        </div>
+      </div>
+
+      <div class="panel panel-default output">
+        <div class="panel-heading">Output here</div>
+        <div class="panel-body">
+          <pre class="output-area" ng-repeat="line in executionResult">{{line}}</pre>
+          <pre class="output-errors" ng-show="!!error" style="color: #f00">Error: {{error}}</pre>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

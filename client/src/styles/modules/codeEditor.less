@@ -5,6 +5,41 @@
     background-color: @dark-cyan-lime-green-color;
   }
 
+  .code-area, .output{
 
+    &{
+      margin-bottom: 10px;
+      &:last-child{
+        .reset-margin;
+      }
+    }
 
+    &.panel{
+      box-shadow: none;
+    }
+
+    .panel-heading {
+      background-color: @light-gray-color;
+      color: @dark-gray-color;
+    }
+
+    .panel-body{
+      .reset-padding;
+    }
+
+    .output-area, .output-errors{
+      .border-radius(0);
+      .reset-outlines;
+    }
+
+    .output-area{
+      color: @moderate-lime-green-color;
+      background-color: @very-light-gray-color;
+    }
+
+    .output-errors{
+      color: @bright-red-color;
+      background-color: @very-light-gray-color;
+    }
+  }
 }
