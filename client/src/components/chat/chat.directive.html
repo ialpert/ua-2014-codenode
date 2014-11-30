@@ -9,7 +9,7 @@
               <img class="circle" src="assets/images/avatar/person.png" alt="person">
             </div>-->
             <div class="row-content">
-              <div class="least-content">{{line.time | timeAgo}}</div>
+              <div class="least-content">{{line.time | date:'yyyy-MM-dd HH:mm:ss'}}</div>
               <h4 class="list-group-item-heading">{{line.author | person}}</h4>
 
               <p class="list-group-item-text" ng-bind-html="line.message | link"></p>

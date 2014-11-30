@@ -13,7 +13,14 @@
 
     <div class="panel-body well">
       <div ng-model="questions">
+        <md-content ng-hide="questions.length">
+          <md-card>
+            <h2>There are no questions yet!</h2>
+            <p>Please push the "+" button and add first one.</p>
+          </md-card>
+        </md-content>
         <div class="list-group {{question.status}}"
+             ng-show="questions.length"
              ng-repeat="question in questions"
              ng-class="{current: !!question.isCurrent}"
              ng-click="selectQuestion(question)">
