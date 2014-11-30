@@ -39,6 +39,9 @@ angular.module('interviewer')
 
         questionsSync.on('all', '**', function(path, val, oldVal, passed) {
           console.log(arguments);
+          $timeout(function() {
+            $scope.questions = lodash.values(lodash.cloneDeep(questionsSync.get()));
+          });
         });
 
         /**

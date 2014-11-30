@@ -15,9 +15,21 @@ angular.module('interviewer')
       link: function($scope) {
         var currentQuestionSync;
 
+
+        var questionsSync, currentQuestionSync;
+
         $scope.modes = Languages;
         $scope.currentMode = 'javascript';
         $scope.code = '';
+
+        questionsSync = AppState.getState().at('_page.session').at('questions');
+        currentQuestionSync = AppState.getState().at('_page.session').at('currentQuestionSync');
+
+        currentQuestionSync.on('change', '', function(val) {
+          $scope.currentQuestionSync = val;
+
+          console.log('CODE', questionsSync.at(val).get('editor.code'));
+        });
 
         $scope.$watch('code', function () {
           //currentQuestionSync.at('editor.code').set($scope.code);
