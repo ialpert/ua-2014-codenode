@@ -45,25 +45,45 @@ angular.module('interviewer')
         };
 
         AppState.getState().at('_page.session').at('editor.executionResult').on('change', '', function(path, val) {
-          $scope.executionResult = val;
+
+          $timeout(function() {
+
+            if (val.error) {
+              $scope.error = val.error;
+              $scope.executionResult = null;
+            } else {
+              $scope.error = null;
+              $scope.executionResult = val.result;
+            }
+
+          });
         });
 
         /**
          * Execute code on the server
          * @param code
          */
-        $scope.execute = function (code) {
+        $scope.execute = function(code) {
           Session.execute({
             code: code
           })
-          .then(function (response) {
-            $scope.error = null;
-            $scope.executionResult = response.log;
-          })
-          .catch(function (error) {
-            $scope.error = error.message;
-            $scope.executionResult = null;
-          });
+            .then(function(response) {
+              /*              $scope.error = null;
+               $scope.executionResult = response.log;*/
+              AppState.getState().at('_page.session').at('editor').set('executionResult', {
+                result: response.log,
+                error: null
+              });
+
+            })
+            .catch(function(error) {
+              /*              $scope.error = error.message;
+               $scope.executionResult = null;*/
+              AppState.getState().at('_page.session').at('editor').set('executionResult', {
+                error: error.message,
+                result: null
+              });
+            });
         };
       }
     };
