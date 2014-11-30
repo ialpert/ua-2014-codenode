@@ -10,6 +10,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('./../package.json'),
         app: {
           src: 'src',
+          bowerPackages: 'bower_components',
           dist: 'build',
           tmp: '.tmp',
           port: '3000'

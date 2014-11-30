@@ -23,7 +23,23 @@ module.exports = function(grunt) {
           cwd: '<%= app.src %>',
           dest: '<%= app.dist %>',
           src: [
-            'fonts/**'
+            'fonts/**',
+            '<%= app.bowerPackages %>/zeroclipboard/dist/ZeroClipboard.swf'
+          ]
+        }
+      ]
+    },
+    rootDist: {
+      files: [
+        {
+          expand: true,
+          flatten: true,
+          cwd: '<%= app.src %>',
+          dest: '<%= app.dist %>',
+          src: [
+            '<%= app.bowerPackages %>/ace-builds/src-min-noconflict/mode-javascript.js',
+            '<%= app.bowerPackages %>/ace-builds/src-min-noconflict/worker-javascript.js',
+            '<%= app.bowerPackages %>/ace-builds/src-min-noconflict/theme-clouds.js'
           ]
         }
       ]
