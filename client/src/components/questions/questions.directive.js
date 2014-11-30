@@ -7,27 +7,38 @@
  * Directive for the question list.
  */
 angular.module('interviewer')
-  .directive('questions', function ($mdDialog, AppState, lodash, Room, $timeout) {
+  .directive('questions', function($mdDialog, AppState, lodash, Room, $timeout) {
     return {
-      restrict   : 'E',
+      restrict: 'E',
       templateUrl: 'components/questions/questions.directive.html',
-      scope      : {},
-      link       : function ($scope) {
+      scope: {},
+      link: function($scope) {
         var questionsSync, currentQuestionSync;
 
         // OT staff
         questionsSync = AppState.getState().at('_page.session').at('questions');
+        currentQuestionSync = AppState.getState().at('_page.session').at('currentQuestionSync');
 
         // Set default values if they have not been instantiated yet.
-        questionsSync.setNull([]);
+        questionsSync.setNull({});
 
         // Syncing main question list
-        questionsSync.on('all', '**', function(questionId, vals, passed) {
+        questionsSync.on('change', '**', function(path, val, oldVal, passed) {
+
           if (passed && !passed.local) {
-            $timeout(function () {
-              $scope.questions = questionsSync.getDeepCopy();
+            $timeout(function() {
+              $scope.questions = lodash.values(lodash.cloneDeep(questionsSync.get()));
             });
           }
+
+          if (!oldVal) {
+            $scope.questions.push(val);
+          }
+
+        });
+
+        questionsSync.on('all', '**', function(path, val, oldVal, passed) {
+          console.log(arguments);
         });
 
         /**
@@ -36,29 +47,38 @@ angular.module('interviewer')
          */
         $scope.states = {
           'success': 'success',
-          'so-so'  : 'warning',
+          'so-so': 'warning',
           'oops...': 'danger'
         };
 
-        $scope.questions = questionsSync.getDeepCopy();
+        $scope.questions = lodash.values(lodash.cloneDeep(questionsSync.get()));
+        $scope.currentQuestionSync = currentQuestionSync.get();
 
+        currentQuestionSync.on('change', '', function(val, oldVal) {
+          $scope.currentQuestionSync = val;
+        });
 
         /**
          * @describe
          * Gets the statistic for each state using.
-         * @param {Array} questions Array of questions
-         * @returns {Array} Array of usage statistic
+         * @param {Object} questions Array of questions
+         * @returns {Object} Array of usage statistic
          */
-        $scope.getStats = function (questions) {
+        $scope.getStats = function(questions) {
           var totalAnsweredQuestions, result;
 
           // Get total count of answered questions. Not answered question will not be counted.
-          totalAnsweredQuestions = questions.filter(function (item) {
+
+          if (!questions) {
+            return {};
+          }
+
+          totalAnsweredQuestions = questions.filter(function(item) {
             return !!item.status;
           }).length;
 
           // Calculate stats.
-          result = questions.reduce(function (memo, item) {
+          result = questions.reduce(function(memo, item) {
             if (!!item.status) {
               if (!memo[item.status]) {
                 memo[item.status] = 0;
@@ -69,7 +89,7 @@ angular.module('interviewer')
           }, {});
 
           // Transform number to percents.
-          Object.keys(result).forEach(function (key) {
+          Object.keys(result).forEach(function(key) {
             result[key] = (result[key] / totalAnsweredQuestions) * 100;
           });
 
@@ -79,74 +99,73 @@ angular.module('interviewer')
         /**
          * @describe
          * Sets answered state for the question.
-         * @param {String} label State's label
+         * @param question
+         * @param {String} status State's status
          */
-        $scope.setQuestionState = function (question, label) {
-          question.status = $scope.states[label];
-          questionsSync.at($scope.questions.indexOf(question)).set('status', question.status);
+        $scope.setQuestionState = function(question, status) {
+
+          questionsSync.at(question.id).set('status', status, function() {
+            console.log(111);
+            question.status = status;
+          });
         };
 
         /**
          * @param {Object} question Changes the current question.
          */
-        $scope.selectQuestion = function (question) {
-          $scope.questions.forEach(function (q) {
-            q.isCurrent = false;
-          });
-          question.isCurrent = true;
-          questionsSync.set(angular.copy($scope.questions));
+        $scope.selectQuestion = function(question) {
+          currentQuestionSync.set(question.id);
         };
 
         /**
          *
+         * @param $event
          * @param {Object} question Question to remove.
          */
-        $scope.removeQuestion = function ($event, question) {
+        $scope.removeQuestion = function($event, question) {
           $event.stopPropagation();
+
           if (confirm('Do you really want to remove this question?')) {
-            questionsSync.remove($scope.questions.indexOf(question));
-            lodash.remove($scope.questions, question);
+            questionsSync.del(question.id);
           }
         };
-
-        //$scope.onSort = function(e, ui) {
-        //  questionsSync.move(ui.item.beforeIdx, ui.item.index());
-        //};
-        //
-        //$scope.beforeSort = function(e, ui) {
-        //  ui.item.beforeIdx = ui.item.index();
-        //};
 
         /**
          * @description
          * Open the add/edit popup for the current or new question
          * @param {Object} question Question to edit
          */
-        $scope.showEditQuestionPopup = function ($event, question) {
+        $scope.showEditQuestionPopup = function($event, question) {
           $event.stopPropagation();
 
           var isNew = !question;
 
           // Open the dialog
           $mdDialog.show({
-            controller : 'QuestionsModalCtrl',
+            controller: 'QuestionsModalCtrl',
             templateUrl: 'components/questions/question.modal.html',
-            locals     : {
-              question: isNew ? {} : angular.copy(question)
+            locals: {
+              question: isNew ? {} : lodash.cloneDeep(question)
             }
           })
-            .then(function (questionFromPopup) {
-              // @todo(M.O.C.K.): No time for explaining, just keep it as is for the demo.
+            .then(function(questionFromPopup) {
+              var data;
+
               if (isNew) {
+                questionFromPopup.id = questionsSync.id();
                 questionFromPopup.author = Room.token;
-                $scope.questions.push(questionFromPopup);
-                questionsSync.push(questionFromPopup);
-              } else {
-                question.text = questionFromPopup.text;
-                question.editor = questionFromPopup.editor;
-                question.author = Room.token;
-                questionsSync.set($scope.questions.indexOf(question), angular.copy(question));
               }
+
+              data = lodash.pick(questionFromPopup, 'id', 'text', 'editor', 'author', 'status');
+
+              questionsSync.set(data.id, data);
+
+              $scope.questions.map(function(item, idx) {
+                if (data.id === item.id) {
+                  $scope.questions[idx] = lodash.merge(item, data);
+                }
+              });
+
             });
         };
       }

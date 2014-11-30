@@ -1,9 +1,9 @@
 <md-dialog class="col-lg-8">
   <md-content>
-    <md-subheader class="md-sticky-no-effect">Popup for questions</md-subheader>
+    <md-subheader class="md-sticky-no-effect">Manage question</md-subheader>
     <div class="modal-body">
       <form>
-        <md-text-float label="Add a new question here" ng-model="item.text"></md-text-float>
+        <md-text-float label="Add a new question here" ng-model="question.text"></md-text-float>
         <div ng-model="question.editor.code" ui-ace="{
                   useWrapMode : false,
                   showGutter: true,
@@ -21,4 +21,3 @@
     <md-button ng-click="close(question)" class="md-primary">Save</md-button>
   </div>
 </md-dialog>
-

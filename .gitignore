@@ -3,3 +3,4 @@
 node_modules
 client/src/css
 client/src/bower_components
+client/build

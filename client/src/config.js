@@ -9,6 +9,6 @@
  */
 angular.module('interviewer')
   .constant('config', {
-    log: true,
+    log: false,
     webrtcSignalingUrl: 'https://signaling.simplewebrtc.com:443'
   });
