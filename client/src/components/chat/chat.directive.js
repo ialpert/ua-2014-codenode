@@ -21,10 +21,14 @@ angular.module('interviewer')
         function recalculationBoxHeight() {
           var chatHolder = element.find('.chat'),
             chatContent = element.find('.md-tabs-content'),
-            headerTabs = element.find('.md-header-items');
+            headerTabs = element.find('.md-header-items'),
+            height, DEFAULT_HEIGHT = 400;
+
+
+         height = ((chatHolder.height() - headerTabs.outerHeight(true)) <= headerTabs.outerHeight(true)) ? DEFAULT_HEIGHT : (chatHolder.height() - headerTabs.outerHeight(true));
 
           chatContent.css({
-            height: chatHolder.height() - headerTabs.outerHeight(true)
+            height: height
           });
         }
         recalculationBoxHeight();
@@ -99,6 +103,23 @@ angular.module('interviewer')
             chat.lastMessage = '';
 
           }
+
+          $scope.goToEnd();
+        };
+
+        /**
+         * After add new post scroll holder to the end
+         */
+        $scope.goToEnd = function() {
+          var scrollBlock = element.find('.list-group');
+
+          scrollBlock.each(function() {
+            var box = $(this);
+
+            box.stop().animate({
+              scrollTop: box[0].scrollHeight
+            }, 200);
+          });
         };
       }
     };
