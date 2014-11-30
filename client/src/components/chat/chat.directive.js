@@ -65,7 +65,9 @@ angular.module('interviewer')
         });
 
         selectedChat.on('change', '', function(val, oldVal, passed) {
-
+          $timeout(function() {
+            $scope.goToEnd();
+          }, 500);
           if (passed && !passed.local) {
 
             $timeout(function() {
@@ -75,7 +77,6 @@ angular.module('interviewer')
         });
 
         chats.on('insert', '*.messages', function(chatId, vals, passed) {
-          console.log(passed);
           if (passed && !passed.local) {
             $timeout(function() {
               chatId = parseInt(chatId);
@@ -107,6 +108,10 @@ angular.module('interviewer')
 
           $scope.goToEnd();
         };
+
+        $timeout(function() {
+         $scope.goToEnd();
+        }, 500);
 
         /**
          * After add new post scroll holder to the end
